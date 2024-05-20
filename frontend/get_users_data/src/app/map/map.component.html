@@ -1,0 +1,258 @@
+<div id="map" class="map-container"></div>
+
+<div *ngIf="mapt">
+  <input type="number" [(ngModel)]="radius" placeholder="Enter radius in meters">
+  <button (click)="triggerDataToMap()">Update Map</button>
+</div>
+<div *ngIf="mapS">
+  <input type="number" [(ngModel)]="radius" placeholder="Enter radius in meters">
+  <button (click)="triggerSourceMap()">Update Map</button>
+</div>
+<div *ngIf="mapM">
+  <input type="number" [(ngModel)]="radius" placeholder="Enter radius in meters">
+  <button (click)="triggerMix()">Update Map</button>
+</div>
+<!-- <div id="map" class="map-container"></div> -->
+
+<!-- <div *ngIf="mapType === 'census'">
+  <app-legend></app-legend>
+</div> -->
+<div *ngIf="mapM">
+  <app-legend3></app-legend3>
+</div>
+<!-- <div *ngIf="mapType === 'under15'">
+  <app-legend2></app-legend2>
+</div> -->
+<div *ngIf="mapt">
+  <app-legend></app-legend>
+</div>
+<div *ngIf="mapS">
+  <app-legend2></app-legend2>
+</div>
+<!-- Inside your HTML template -->
+
+<!-- Inside your HTML template -->
+
+<!-- <div *ngIf="mapType === 'combined'">
+  <app-legend3></app-legend3>
+  <div>
+   
+    <input type="checkbox" [(ngModel)]="redLayerVisible" (change)="toggleRedLayerVisibility()">
+    <label for="showFilteredPoints">Red Points</label>
+   
+    <input type="checkbox" [(ngModel)]="greenLayerVisible" (change)="togglegreenLayerVisibility()">
+    <label for="showFilteredPoints">Green Points</label>
+    <input type="checkbox" [(ngModel)]="xLayerVisible" (change)="togglexLayerVisibility()">
+    <label for="showFilteredPoints">Black Points</label>
+    <input type="checkbox" [(ngModel)]="maptodataLayerVisible" (change)="toggleMapdataLayerVisibility()">
+    <label for="showFilteredPoints">pink Points</label>
+    <input type="checkbox" [(ngModel)]="notallowedVisible" (change)="togglenotAllowedLayerVisibility()">
+    <label for="showFilteredPoints">navy Points</label>
+  </div>
+</div> -->
+
+<div *ngIf="mapM">
+  <app-legend3></app-legend3>
+  <!-- Primary Categories -->
+  <div>
+    <input type="checkbox" [(ngModel)]="allowedVisible" (change)="toggleAllowedVisibility($event)">
+    <label>Allowed</label>
+
+    <input type="checkbox" [(ngModel)]="notAllowedVisible" (change)="toggleNotAllowedVisibility($event)">
+    <label>Not Allowed</label>
+
+    <input type="checkbox" [(ngModel)]="unexploredVisible" (change)="toggleUnexploredVisibility($event)">
+    <label>Unexplored</label>
+    <button (click)="toggleRouteLayer()">Toggle Route Layer</button>
+    
+  </div>
+</div>
+
+
+
+
+<!-- Container for the OpenLayers map -->
+<!-- <div id="map" class="map-container"></div> -->
+
+<!-- <div class="map-container"> -->
+  <!-- <app-map *ngIf="showMap && mapType === 'census'" style="width:100%; height:calc(100vh - 64px);"> -->
+    <!-- <div *ngIf="selectedCensusData" class="census-data-overlay">
+      <h2>Census Data Details</h2>
+      <p><strong>Census Code (2011):</strong> {{selectedCensusData.censusCode2011}}</p>
+      <p><strong>Village:</strong> {{selectedCensusData.village}}</p>
+      <p><strong>Pincode:</strong> {{selectedCensusData.pincode}}</p>
+      <p><strong>District:</strong> {{selectedCensusData.district}}</p>
+      <p><strong>State:</strong> {{selectedCensusData.state}}</p>
+      <p><strong>Total Population (2011):</strong> {{selectedCensusData.totP2011}}</p>
+      <p><strong>Number of Households (2011):</strong> {{selectedCensusData.noHh2011}}</p>
+      <p><strong>TRU (2011):</strong> {{selectedCensusData.tru2011}}</p>
+      <p><strong>Latitude (Min Bound Centroid):</strong> {{selectedCensusData.latMinBoundCentroid}}</p>
+      <p><strong>Longitude (Min Bound Centroid):</strong> {{selectedCensusData.longMinBoundCentroid}}</p>
+      <p><strong>Final Category:</strong> {{selectedCensusData.finalCat}}</p>
+      <p><strong>Status:</strong> {{selectedCensusData.status}}</p>
+      <p><strong>Deep Status:</strong> {{selectedCensusData.deepStatus}}</p>
+      <p><strong>Boundary Distance:</strong> {{selectedCensusData.bDist}}</p>
+      <p><strong>Visited:</strong> {{selectedCensusData.visited}}</p>
+      <button (click)="clearSelectedData()">Close</button>
+    </div> -->
+  <!-- </app-map> -->
+<!-- </div> -->
+
+  <div *ngIf="currentSelectedData" class="census-data-overlay">
+    <h2>Under15 Data Details</h2>
+    <p><strong>Census Code (2011):</strong> {{ currentSelectedData.censuscode2011 }}</p>
+    <p><strong>Village:</strong> {{ currentSelectedData.village }}</p>
+    <p><strong>Pincode:</strong> {{ currentSelectedData.pincode }}</p>
+    <p><strong>District:</strong> {{ currentSelectedData.district }}</p>
+    <p><strong>State:</strong> {{ currentSelectedData.state }}</p>
+    <p><strong>Total Population (2011):</strong> {{ currentSelectedData.tot_p_2011 }}</p>
+    <p><strong>Number of Households (2011):</strong> {{ currentSelectedData.no_hh_2011 }}</p>
+    <p><strong>TRU (2011):</strong> {{ currentSelectedData.tru_2011 }}</p>
+    <p><strong>Is PC In:</strong> {{ currentSelectedData.is_pc_in }}</p>
+    <p><strong>Latitude (Min Bound Centroid):</strong> {{ currentSelectedData.lat_min_bound_centroid }}</p>
+    <p><strong>Longitude (Min Bound Centroid):</strong> {{ currentSelectedData.long_min_bound_centroid }}</p>
+    <p><strong>Alpha 70 Stat:</strong> {{ currentSelectedData.alpha_70_stat }}</p>
+    <p><strong>Poly Valid:</strong> {{ currentSelectedData.poly_valid }}</p>
+    <p><strong>Final Category:</strong> {{ currentSelectedData.Final_Cat }}</p>
+    <p><strong>Status:</strong> {{ currentSelectedData.status }}</p>
+    <p><strong>Deep Stat:</strong> {{ currentSelectedData.deep_stat }}</p>
+    <p><strong>Deep Status:</strong> {{ currentSelectedData.deep_status }}</p>
+    <p><strong>Boundary Distance:</strong> {{ currentSelectedData.b_dist }}</p>
+    <button (click)="clearSelectedData()">Close</button>
+  </div>
+  <div *ngIf="latestSourcingData"  class="census-data-overlay">
+    <h2>Latest Sourcing Details</h2>
+    <p><strong>Census Code (2011):</strong> {{ latestSourcingData.censuscode2011 }}</p>
+    <p><strong>Village:</strong> {{ latestSourcingData.village }}</p>
+    <p><strong>Pincode:</strong> {{ latestSourcingData.pincode }}</p>
+    <p><strong>District:</strong> {{ latestSourcingData.district }}</p>
+    <p><strong>State:</strong> {{ latestSourcingData.state }}</p>
+    <p><strong>Total Population:</strong> {{ latestSourcingData.population }}</p>
+    <p><strong>Number of Households:</strong> {{ latestSourcingData.houseHolds }}</p>
+    <p><strong>UR:</strong> {{ latestSourcingData.ur }}</p>
+    <p><strong>Latitude (Min Bound Centroid):</strong> {{ latestSourcingData.latMinBoundCentroid }}</p>
+    <p><strong>Longitude (Min Bound Centroid):</strong> {{ latestSourcingData.longMinBoundCentroid }}</p>
+    <p><strong>Jun 23 Category:</strong> {{ latestSourcingData.jun23Cat }}</p>
+    <p><strong>Visited:</strong> {{ latestSourcingData.visited }}</p>
+    <button (click)="clearSelectedData()">Close</button>
+  </div>
+  
+  <!-- <div *ngIf="selectedCombined15Data" class="census-data-overlay">
+    <h2>Combined Data Details</h2>
+    <p><strong>Census Code (2011):</strong> {{selectedCombined15Data.censusCode2011}}</p>
+     <p><strong>Village:</strong> {{selectedCombined15Data.village}}</p>
+    <p><strong>Pincode:</strong> {{selectedCombined15Data.pincode}}</p>
+    <p><strong>District:</strong> {{selectedCombined15Data.district}}</p>
+    <p><strong>State:</strong> {{selectedCombined15Data.state}}</p>
+    <p><strong>Total Population (2011):</strong> {{selectedCombined15Data.totP2011}}</p>
+    <p><strong>Number of Households (2011):</strong> {{selectedCombined15Data.noHh2011}}</p>
+    <p><strong>TRU (2011):</strong> {{selectedCombined15Data.tru2011}}</p>
+    <p><strong>Latitude (Min Bound Centroid):</strong> {{selectedCombined15Data.latMinBoundCentroid}}</p>
+    <p><strong>Longitude (Min Bound Centroid):</strong> {{selectedCombined15Data.longMinBoundCentroid}}</p>
+    <p><strong>Alpha 70 Stat:</strong> {{selectedCombined15Data.alpha70Stat}}</p>
+    <p><strong>Polygon Valid:</strong> {{selectedCombined15Data.polyValid}}</p>
+    <p><strong>Final Category:</strong> {{selectedCombined15Data.finalCat}}</p> 
+     <p><strong>Status:</strong> {{selectedCombined15Data.status}}</p>
+     <p><strong>Deep Stat:</strong> {{selectedCombined15Data.deepStat}}</p>
+    <p><strong>Deep Status:</strong> {{selectedCombined15Data.deepStatus}}</p>
+    <p><strong>Boundary Distance:</strong> {{selectedCombined15Data.bDist}}</p>
+    <p><strong>Visited:</strong> {{selectedCombined15Data.visited}}</p>
+    <p><strong>Center:</strong> {{selectedCombined15Data.center}}</p>
+    <button (click)="clearSelectedData()">Close</button>
+</div> -->
+
+
+<div *ngIf="selectedradar" class  = "census-data-overlay">
+  <h2>Radar Data</h2>
+  <p><strong>latitude:</strong> {{selectedradar.latitude}}</p>
+  <p><strong>longitude:</strong> {{selectedradar.longitude}}</p>
+  <p><strong>createdAt:</strong> {{selectedradar.createdAt}}</p>
+  <p><strong>updatedAt:</strong> {{selectedradar.updatedAt}}</p>
+  <p><strong>flag:</strong> {{selectedradar.flag}}</p>
+  <button (click)="clearSelectedData()">Close</button>
+</div>
+<!-- <div *ngIf="selectedLatestSourcing" class  = "census-data-overlay">
+  <h2>Radar Data</h2>
+  
+</div> -->
+<div *ngIf="MixData" class="census-data-overlay">
+  <h2>Location Details</h2>
+  <p><strong>Census Code 2011:</strong> {{MixData.censuscode2011}}</p>
+  <p><strong>Village:</strong> {{MixData.village}}</p>
+  <p><strong>Pincode:</strong> {{MixData.pincode}}</p>
+  <p><strong>District:</strong> {{MixData.district}}</p>
+  <p><strong>Population:</strong> {{MixData.population}}</p>
+  <p><strong>Households:</strong> {{MixData.houseHolds}}</p>
+  <p><strong>Urban/Rural:</strong> {{MixData.ur}}</p>
+  <p><strong>Latitude:</strong> {{MixData.latMinBoundCentroid}}</p>
+  <p><strong>Longitude:</strong> {{MixData.longMinBoundCentroid}}</p>
+  <p><strong>Category:</strong> {{MixData.jun23Cat}}</p>
+  <p><strong>Center Count:</strong> {{MixData.centerCount}}</p>
+  <p><strong>Initiated Center:</strong> {{MixData.initiatedCen}}</p>
+  <p><strong>CGT1 Center:</strong> {{MixData.cgt1Cen}}</p>
+  <p><strong>CGT2 Center:</strong> {{MixData.cgt2Cen}}</p>
+  <p><strong>GRT Center:</strong> {{MixData.grtCen}}</p>
+  <p><strong>Active Center:</strong> {{MixData.activeCen}}</p>
+  <p><strong>Loan Applications:</strong> {{MixData.loanApps}}</p>
+  <p><strong>CB Fail:</strong> {{MixData.cbFail}}</p>
+  <p><strong>CB Done:</strong> {{MixData.cbDone}}</p>
+  <p><strong>CGT1:</strong> {{MixData.cgt1}}</p>
+  <p><strong>CGT2:</strong> {{MixData.cgt2}}</p>
+  <p><strong>GRT:</strong> {{MixData.grt}}</p>
+  <p><strong>Disbursed:</strong> {{MixData.disbursed}}</p>
+  <p><strong>Center:</strong> {{MixData.center}}</p>
+  <p><strong>State:</strong> {{MixData.state}}</p>
+  <p><strong>Visited:</strong> {{MixData.visited}}</p>
+  <p><strong>Category Status:</strong> {{MixData.catStatus}}</p>
+  <p><strong>Key:</strong> {{MixData.key}}</p>
+  <button (click)="clearSelectedData()">Close</button>
+</div>
+<!-- <div class="parent-container"> -->
+  <!-- <div class="map-container"></div> -->
+<div *ngIf="mapM" class="temp">
+  <!-- <app-map *ngIf="showMix" [mapM]="mapM"></app-map> -->
+  <div class="census-data">
+      <!-- General Counts -->
+      <div class="general-counts">
+        <h3>General Counts</h3>
+        <p><strong>Unique Total Census Codes:</strong> {{ filterResults[0]?.unique }}</p>
+        <p><strong>Rural Count:</strong> {{ filterResults[0]?.urCounts?.Rural }}</p>
+        <p><strong>Urban Count:</strong> {{ filterResults[0]?.urCounts?.Urban }}</p>
+        <p><strong>Allowed and Center Exist:</strong> {{ filterResults[0]?.allowedAndCenterCount }}</p>
+        <p><strong>Not Allowed and Center Exist:</strong> {{ filterResults[0]?.notAllowedAndCenterCount }}</p>
+        <!-- <p><strong>Total applications:</strong> {{ filterResults[0].totalapp }}</p> -->
+        <p *ngIf="filterResults[0]"><strong>Total Applications:</strong> {{ filterResults[0].totalapp }}</p>
+
+        <p *ngIf="filterResults[0]"><strong>Total disbursed:</strong> {{ filterResults[0].totaldisb }}</p>
+        <p *ngIf="filterResults[0]"><strong>Total Radar:</strong> {{ filterResults[0].countFlag }}</p>
+          
+      </div>
+      
+      <!-- Condition-specific Data Table -->
+      <div *ngIf="filterResults.length > 0; else noDataTemplate">
+          <h3>Condition-specific Data</h3>
+          <table>
+              <thead>
+                  <tr>
+                      <th>Condition</th>
+                      <th>Unique Census Code Count</th>
+                      <th>Total Households</th>
+                      <th>disbursed</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let result of filterResults">
+                      <td>{{ result.condition }}</td>
+                      <td>{{ result.uniqueCensusCodeCount }}</td>
+                      <td>{{ result.totalHouseholds }}</td>
+                      <td>{{ result.conddisb }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <ng-template #noDataTemplate>
+          <p>No data available.</p>
+      </ng-template>
+  </div>
+</div>
+<!-- </div> -->

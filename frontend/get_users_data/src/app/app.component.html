@@ -1,0 +1,290 @@
+<mat-toolbar color="primary" class="mat-toolbar-top-fixed">
+  <span class="logo">
+    <img src="assets/SriFin_Logo.png" class="white-bg" alt="Logo" style="height: 40px;"> 
+  </span>
+  <span class="toolbar-spacer"></span>
+  <div class="user-info">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-icon">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <span class="welcome-message">Welcome, {{ userName || 'Guest' }}</span>
+  </div>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item *ngIf="!isLoggedIn" (click)="login()">Login</button>
+    <button mat-menu-item *ngIf="isLoggedIn" (click)="logout()">Log out</button>
+  </mat-menu>
+  
+</mat-toolbar>
+
+
+
+<div class="sidebar">
+  <button mat-button (click)="redirectToSrifin()">Api Logs</button>
+  <div>
+ 
+    
+    <button mat-button (click)="runScripts()" [disabled]="isLoading">
+      Run Scripts
+    </button>
+  
+  </div>
+  
+
+<div>
+
+  <button mat-button (click)="toggleKaDropdown()" [class.active]="showKaDropdown">KA</button>
+  <div *ngIf="showKaDropdown" class="nested-menu">
+    <button mat-button (click)="changeDataset('ka')">KA negative Activity</button>
+      <button mat-button (click) = "togglekalb()">Kalaburgi Region</button>
+          <button *ngIf = "toggkalb" mat-button (click) = "toggleinkalb()">Kalaburgi Area</button>
+          <div *ngIf = "togginkalb">
+            <button mat-button (click) = "selecttMix('kala_Mix')">Kalaburgi</button>
+            <button mat-button (click) = "selecttMix('basa_Mix')">Basavakalyan</button>
+            <button mat-button (click) = "selecttMix('yadg_Mix')">Yadgir</button>
+            <button mat-button (click) = "selecttMix('bija_Mix')">Bijapur</button>
+            <button mat-button (click) = "selecttMix('kama_Mix')">Kamalapur</button>
+            <button mat-button (click) = "selecttMix('chit_Mix')">Chitguppa</button>
+            <button mat-button (click) = "selecttMix('shah_Mix')">Shahpur</button>
+          </div>
+          <button mat-button (click) = "togglehub()">Hubli Region</button>
+       
+      <div *ngIf="togghub">
+        <button mat-button (click) = "toggsham()">Shamanur Area</button>
+        <div *ngIf = "togsham">
+          <button mat-button (click) = "selecttMix('have_Mix')">Haveri</button>
+            <button mat-button (click) = "selecttMix('sham_Mix')">Shamanur</button>
+            <button mat-button (click) = "selecttMix('rane_Mix')">Ranebennur</button>
+        </div>
+        <button mat-button (click) = "togggoka()">Gokak Area</button>
+        <div *ngIf = "toggok">
+          <button mat-button (click) = "selecttMix('bela_Mix')">Belagavi</button>
+          <button mat-button (click) = "selecttMix('loka_Mix')">Lokapur</button>
+          <button mat-button (click) = "selecttMix('goka_Mix')">Gokak</button>
+          <button mat-button (click) = "selecttMix('hubb_Mix')">Hubbali</button>
+          <button mat-button (click) = "selecttMix('kitt_Mix')">Kittur</button>
+        </div>
+      </div>
+    </div>
+    </div>
+<!-- 
+    <button *ngIf="isKalaburgiUser" mat-button (click)="toggleKaDropdown()" [class.active]="showKaDropdown">KA</button>
+    <div *ngIf="showKaDropdown && !isBasavUser" class="nested-menu">
+      <button mat-button (click)="changeDataset('ka')">KA Negative Activity</button>
+      <button *ngIf="isKalaburgiUser" mat-button (click)="togglekalb()">Kalaburgi Region</button>
+      <div *ngIf="toggkalb && isKalaburgiUser">
+        <button mat-button (click)="toggleinkalb()">Kalaburgi Area</button>
+        <div *ngIf="togginkalb && isKalaburgiUser">
+          <button mat-button (click)="selecttMix('kala_Mix')">Kalaburgi</button>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="isBasavUser" mat-button (click)="toggleKaDropdown()" [class.active]="showKaDropdown">KA</button>
+    <div *ngIf="showKaDropdown && isBasavUser" class="nested-menu">
+      <button mat-button (click)="changeDataset('ka')">KA Negative Activity</button>
+      <button *ngIf="isBasavUser" mat-button (click)="togglekalb()">Kalaburgi Region</button>
+      <div *ngIf="toggkalb && isBasavUser">
+        <button mat-button (click)="toggleinkalb()">Kalaburgi Area</button>
+        <div *ngIf="togginkalb && isBasavUser">
+          <button mat-button (click)="selecttMix('basa_Mix')">Basavakalyan</button>
+        </div>
+      </div>
+    </div> -->
+  <div>
+    <button  mat-button (click)="toggleBrDropdown()" [class.active]="showBrDropdown">BR</button>
+    <div *ngIf="showBrDropdown" class="nested-menu">
+      <button mat-button (click)="changeDataset('br')">BR negative Activity</button>
+        <button mat-button (click) = "toggledarb()">Darbhanga Region</button>
+            <button *ngIf = "toggdarb" mat-button (click) = "toggleindarb()">Darbhanga Area</button>
+            <button *ngIf = "toggdarb" mat-button (click) = "toggmuza()">Muzaffarpur Area</button>
+            <div *ngIf = "toggindarb">
+              <button mat-button (click) = "selecttMix('darb_Mix')">Darbhanga</button>
+              <button mat-button (click) = "selecttMix('sakr_Mix')">Sakri</button>
+              <button mat-button (click) = "selecttMix('phul_Mix')">Phulparas</button>
+              <button mat-button (click) = "selecttMix('beni_Mix')">Benipur</button>
+            </div>
+            <div *ngIf = "togmuza">
+              <button mat-button (click) = "selecttMix('runn_Mix')">Runnisaidpur</button>
+                <button mat-button (click) = "selecttMix('sahe_Mix')">Sahebganj</button>
+                <button mat-button (click) = "selecttMix('rose_Mix')">Rosera</button>
+                <button mat-button (click) = "selecttMix('sheo_Mix')">Sheohar</button>
+                <button mat-button (click) = "selecttMix('kant_Mix')">Kanti</button>
+                <button mat-button (click) = "selecttMix('sita_Mix')">Sitamarhi</button>
+                <button mat-button (click) = "selecttMix('sama_Mix')">Samastipur</button>
+            </div>
+         
+        
+       
+        </div>
+      
+      </div>
+  
+  
+  
+
+ 
+  <div>
+    <div>
+      <button  mat-button (click)="toggleUpDropdown()" [class.active]="showUpDropdown">UP</button>
+      <div *ngIf="showUpDropdown" class="nested-menu">
+        <button mat-button (click)="changeDataset('up')">UP negative Activity</button>
+        <button mat-button (click)="toggleUpWestDropdown()">UP West</button>
+  
+        <div *ngIf="showwest">
+          <button mat-button (click)="toggleMath()">Mathura Region</button>
+            <button *ngIf="toggmath" mat-button (click)="toggleMeer()">Meerut Area</button>
+            <div *ngIf="togmeer">
+              <button mat-button (click)="selecttMix('hath_Mix')">Hathras</button>
+              <button mat-button (click)="selecttMix('alig_Mix')">Aligarh</button>
+              <button mat-button (click)="selecttMix('shik_Mix')">Shikarpur</button>
+              <button mat-button (click)="selecttMix('bara_Mix')">Baraut</button>
+              <button mat-button (click)="selecttMix('mawa_Mix')">Mawana</button>
+              <button mat-button (click)="selecttMix('siya_Mix')">Siyana</button>
+              <button mat-button (click)="selecttMix('meer_Mix')">Meerganj</button>
+              <button mat-button (click)="selecttMix('shah_Mix')">Shahjahanpur</button>
+            </div>
+            <button *ngIf = "toggmath" mat-button (click)="toggleinMath()">Mathura Area</button>
+            <div *ngIf="togmath">
+              <button mat-button (click)="selecttMix('jale_Mix')">Jalesar</button>
+              <button mat-button (click)="selecttMix('tund_Mix')">Tundla</button>
+              <button mat-button (click)="selecttMix('math_Mix')">Mathura</button>
+              <button mat-button (click)="selecttMix('kira_Mix')">Kiraoli</button>
+              <button mat-button (click)="selecttMix('fate_Mix')">Fatehabad</button>
+            </div>
+        </div>
+  
+        <button mat-button (click)="toggleUpeastDropdown()">UP East</button>
+  
+        <div *ngIf="showeast">
+            <button mat-button (click)="toggAyodh()">Ayodhya Region</button>
+         <div *ngIf = "togayo">
+          <button mat-button (click)="toggGora()">Gorakhpur Area</button>
+          <div *ngIf = "toggor">
+          <button mat-button (click)="selecttMix('ayod_Mix')">Ayodhya</button>
+          <button mat-button (click)="selecttMix('madh_Mix')">Madhuban</button>
+          <button mat-button (click)="selecttMix('shiv_Mix')">Shivpur</button>
+          <button mat-button (click)="selecttMix('gora_Mix')">Gorakhpur</button>
+          <button mat-button (click)="selecttMix('chau_Mix')">Chauri Chaura</button>
+          <button mat-button (click)="selecttMix('uruw_Mix')">Uruwa Bazar</button>
+          <button mat-button (click)="selecttMix('tara_Mix')">Tarabganj</button>
+          <button mat-button (click)="selecttMix('gopi_Mix')">Gopiganj</button>
+          <button mat-button (click)="selecttMix('gosh_Mix')">Goshaiganj</button>
+          </div>
+          <button mat-button (click)="toggKush()">Kushinagar Area</button>
+          <div *ngIf="togkus">
+          <button mat-button (click)="selecttMix('bahr_Mix')">Bahraich</button>
+          <button mat-button (click)="selecttMix('balr_Mix')">Balrampur</button>
+          <button mat-button (click)="selecttMix('ikau_Mix')">Ikauna</button>
+          <button mat-button (click)="selecttMix('khad_Mix')">Khadda</button>
+          <button mat-button (click)="selecttMix('capt_Mix')">Captainganj</button>
+          <button mat-button (click)="selecttMix('teta_Mix')">Tetari Bazar</button>
+          <button mat-button (click)="selecttMix('nich_Mix')">Nichlaul</button>
+          <button mat-button (click)="selecttMix('nanp_Mix')">Nanpara</button>
+          </div>
+          <button mat-button (click)="toggChit()">Chitrakoot Area</button>
+          <div *ngIf = "togchi">
+            <button mat-button (click)="selecttMix('karw_Mix')">Karwi</button>
+            <button mat-button (click)="selecttMix('maho_Mix')">Mahoba</button>
+            <button mat-button (click)="selecttMix('band_Mix')">Banda</button>
+            <button mat-button (click)="selecttMix('hami_Mix')">Hamirpur</button>
+            <button mat-button (click)="selecttMix('lali_Mix')">Lalitpur</button>
+            <button mat-button (click)="selecttMix('jhan_Mix')">Jhansi</button>
+            <button mat-button (click)="selecttMix('mari_Mix')">Mariahu</button>
+     
+            
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    </div>
+
+
+<div class="content">
+  <iframe *ngIf="externalUrl" [src]="externalUrl | safeUrl" style="width:100%; height:calc(100vh - 85px); border:none;"></iframe>
+  
+  <!-- Conditional rendering based on `showMap` and the `mapType` -->
+  <app-map *ngIf="showMap && ['census', 'under15', 'combined', 'latestSourcing', 'mix', 'kala', 'basa', 'yadg', 'bija', 'kama', 'have', 'bela', 'chit', 'loka', 'goka','kitt', 'sham', 'hubb', 'shah', 'rane', 'darb', 'sakr', 'phul', 'runn', 'beni', 'sahe', 'rose', 'sheo', 'kant', 'sita', 'sama', 'hath','jale', 'shiv', 'gora', 'chau', 'tund', 'alig', 'ikau', 'khad', 'capt', 'tara', 'maho',  'nich', 'kira' , 'darb_15','sakr_15' , 'phul_15' , 'runn_15' , 'beni_15' , 'sahe_15' , 'rose_15' , 'sheo_15' , 'kant_15' , 'sita_15' , 'sama_15'].includes(mapType)" [mapType]="mapType" style="width:100%; height:calc(100vh - 200px);"></app-map>
+  <app-map *ngIf="showUnder15" [mapt]="mapt" style="width:100%; height:calc(100vh - 200px);"></app-map>
+  <app-map *ngIf="showSource" [mapS]="mapS" style="width:100%; height:calc(100vh - 200px);"></app-map>
+  <app-map *ngIf="showMix && !isVisible" [mapM]="mapM" style="width:100%; height:100px;"></app-map>
+  <canvas id="canvas"></canvas>
+  <!-- <button (click)="togglemapp()">Toggle mapp</button> -->
+  <div *ngIf="mapp" class="content">
+    <!-- Your map container -->
+    <div id="map" class="map"></div>
+   
+    <!-- Toggle button -->
+    <button (click)="toggleRouteLayer()">Toggle Route Layer</button>
+  </div>
+  <div *ngIf="isLoading" class="loading-indicator">
+    Please wait, scripts are running...
+  </div>
+  <button *ngIf="scriptOutput" (click)="toggleerror()">toggle errors</button>
+  <div *ngIf="show_error && scriptOutput">
+    <pre>{{ scriptOutput }}</pre>
+  </div>
+  <table *ngIf="isVisible && negativeData.length >0" class="data-table">
+    <thead>
+      <tr>
+        <th>Branch</th>
+        <th>Latest Application</th>
+        <th>Pincode</th>
+        <th>Jun23 Cat</th>
+        <th>Recorded Pincode</th>
+        <th>Recorded Pincode Cat</th>
+        <th>Census Code 2011</th>
+        <th>Village</th>
+        <th>District</th>
+        <th>State</th>
+        <th>UR</th>
+        <th>Initiated Cen</th>
+        <th>CGT1 Cen</th>
+        <th>CGT2 Cen</th>
+        <th>GRT Cen</th>
+        <th>Active Cen</th>
+        <th>Loan Apps</th>
+        <th>CB Fail</th>
+        <th>CB Done</th>
+        <th>CGT1</th>
+        <th>CGT2</th>
+        <th>GRT</th>
+        <th>Disbursed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of negativeData">
+        <td>{{ item.branch }}</td>
+        <td>{{ item.latestApplication }}</td>
+        <td>{{ item.pincode }}</td>
+        <td>{{ item.jun23Cat }}</td>
+        <td>{{ item.recordedPincode }}</td>
+        <td>{{ item.recordedPincodeCat }}</td>
+        <td>{{ item.censuscode2011 }}</td>
+        <td>{{ item.village }}</td>
+        <td>{{ item.district }}</td>
+        <td>{{ item.state }}</td>
+        <td>{{ item.ur }}</td>
+        <td>{{ item.initiatedCen }}</td>
+        <td>{{ item.cgt1Cen }}</td>
+        <td>{{ item.cgt2Cen }}</td>
+        <td>{{ item.grtCen }}</td>
+        <td>{{ item.activeCen }}</td>
+        <td>{{ item.loanApps }}</td>
+        <td>{{ item.cbFail }}</td>
+        <td>{{ item.cbDone }}</td>
+        <td>{{ item.cgt1 }}</td>
+        <td>{{ item.cgt2 }}</td>
+        <td>{{ item.grt }}</td>
+        <td>{{ item.disbursed }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+
+
+
+

@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://TEJAKUMAR-INTER:1433;databaseName=teja;encrypt=true;trustServerCertificate=true
+#    url: jdbc:sqlserver://;serverName=TEJAKUMAR-INTER;databaseName=master
+    username: sa
+    password: Teja@595
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect

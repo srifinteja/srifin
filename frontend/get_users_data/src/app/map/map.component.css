@@ -1,0 +1,90 @@
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 600px; /* Adjust as needed */
+}
+
+.temp {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+  transform: scale(0.75);
+  transform-origin: top left;
+  z-index: 1100; /* Adjust this value as needed */
+
+  pointer-events: none;
+  
+}
+.checkbox-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust the gap size as needed */
+}
+
+.checkbox-button-container label,
+.checkbox-button-container button {
+  margin-bottom: 5px; /* Adjust the vertical margin as needed */
+}
+
+.temp * {
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera, and Firefox */
+  pointer-events: none;
+}
+
+.census-data-overlay {
+  position: absolute;
+  top: 20px; /* Adjust top position */
+  right: 20px; /* Adjust right position */
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensure it's above the map */
+}
+.census-data {
+  /* position: absolute; */
+ 
+  background-color: rgba(255, 255, 255, 0.8);
+  /* padding: 15px;
+  border-radius: 5px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;  */
+}
+.general-counts {
+  margin-bottom: 20px;
+}
+
+.data-table h3 {
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  white-space: normal; /* Allow text to wrap */
+    max-width: 120px; /* Set a max-width to control space usage */
+    word-wrap: break-word; /* Break the word at the limit of the max-width */
+  background-color: #4CAF50;
+  color: white;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}

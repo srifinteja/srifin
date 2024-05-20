@@ -1,0 +1,331 @@
+.sidebar {
+  height: 93vh; /* or calc(100vh - [Any top margin/padding]) if your toolbar needs to be accounted for */
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden; /* Hide horizontal overflow */
+  overflow-y: auto; /* Allow vertical scrolling */
+  background-color: #32424A;
+  padding-top: 10px;
+  z-index: 2000;
+}
+
+
+
+
+/* Style for sidebar buttons to match previous link styles */
+.sidebar button {
+  padding: 10px 15px;
+  font-size: 18px;
+  color: white; 
+  background-color: #32424A; 
+  border: none; 
+  width: 100%; 
+  text-align: left; 
+  display: block;
+  margin: 0; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+/* Change background color on hover */
+.sidebar button:hover {
+  background-color: #575757; 
+}
+
+
+/* Style for mat-menu */
+.mat-menu-panel {
+  background-color: #32424A;
+  color: white;
+  border: none;
+}
+
+.mat-menu-content {
+  padding: 0;
+}
+
+.mat-menu-item {
+  font-size: 16px;
+  color: white;
+}
+
+.mat-menu-item:hover {
+  background-color: #575757;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+.content {
+  margin-left: 250px;
+  padding: 16px; 
+  padding-top: 64px; 
+  box-sizing: border-box; 
+}
+
+
+
+
+
+/* Style for the dropdown menu */
+.dropdown-menu {
+  /* Keep other styles */
+  display: block; /* Always display the dropdown */
+  position: absolute; /* Position absolutely to the parent button */
+  top: 100%; /* Position below the button */
+  left: 0; /* Align with the left edge of the button */
+  background-color: #32424A;
+  border: none;
+  padding: 10px;
+  z-index: 1; /* Ensure it's above other elements */
+}
+
+.sidebar button.active {
+  background-color: #1E2A30; /* Slightly darker for active state */
+}
+/* map.component.css */
+/* map.component.css */
+.map {
+  width: 100%;
+  height: calc(100vh - 200px); /* Example: Adjust the height dynamically */
+}
+
+.loading-indicator {
+  font-weight: bold;
+  color: red;
+}
+
+.nested-menu {
+  margin-left: 20px;
+  padding: 10px;
+  border-left: 2px solid #ccc;
+}
+
+.nested-menu button {
+  padding-left: 30px; /* Further indent nested items */
+  transition: padding-left 0.3s ease; /* Smooth transition for nested items */
+}
+
+/* Apply display block to nested-menu when sidebar button is active */
+.sidebar button.active + .nested-menu {
+  display: block;
+  animation: slideDown 0.3s ease-out forwards; /* Smooth slide down animation */
+}
+
+/* Keyframes for slide down animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* Show dropdown menu when the parent button is active */
+/* .sidebar button.active + .dropdown-menu {
+  display: block;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Top Navigation Bar */
+.topnav {
+  background-color: #32424A;
+  overflow: hidden;
+  position: fixed; /* Fix navbar to the top */
+  width: 100%;
+  top: 0;
+  z-index: 2; /* Ensure it's above other items */
+}
+
+.topnav-logo img {
+  float: left;
+  margin: 5px 10px;
+}
+
+.topnav-right {
+  float: right;
+  margin-right: 10px;
+}
+
+/* Adjust button styling in top navigation */
+.topnav-right button {
+  color: #f2f2f2;
+  background-color: transparent; /* Match topnav background */
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 14px 16px;
+}
+
+
+/* Adjust sidebar top margin due to fixed topnav */
+.sidebar {
+  margin-top: 50px; /* Adjust based on the actual height of your topnav */
+}
+
+
+
+
+
+
+/* Overall toolbar styling */
+.mat-toolbar-top-fixed, .nav-toolbar {
+  position: fixed; /* Fix the toolbar at the top */
+  top: 0;
+  width: 100%;
+  z-index: 3000; /* Ensure the toolbar is above other content */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between logo and user info */
+  background-color: #32424A; /* Primary color; adjust based on your theme */
+}
+
+/* Logo styling */
+.logo img {
+  height: 40px; /* Adjust based on your preference */
+  background-color: white;
+}
+
+/* Placeholder for additional spacing if needed */
+.toolbar-spacer {
+  flex-grow: 1;
+}
+
+/* User info and dropdown button styling */
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  color: white; /* Icon color */
+  margin-right: 8px; /* Space between icon and welcome message */
+}
+
+/* Styling for the welcome message */
+.welcome-message {
+  color: white; /* Text color */
+  margin-right: 16px; /* Adjust based on layout */
+}
+
+
+
+.nav-toolbar {
+  top: 64px; 
+  background-color: #32424A; 
+}
+
+
+.small-neat-hamburger .mat-icon {
+  color: white; 
+}
+
+.mat-nav-list {
+  padding-top: 20px; /* Spacing at the top */
+}
+
+.mat-nav-list a {
+  color: #333; /* Darker text for better readability */
+  font-weight: bold; /* Bold font for better visibility */
+}
+
+.mat-expansion-panel {
+  margin: 10px; /* Spacing around expansion panels */
+  box-shadow: none; /* Removes the default shadow */
+  border: 1px solid #ddd; /* Adds a light border */
+}
+
+.mat-expansion-panel-header {
+  color: #333; /* Darker text for headers */
+  font-size: 16px; /* Larger font size for headers */
+}
+
+.mat-action-list a {
+  font-size: 14px; /* Adjust font size for list items */
+  color: #555; /* Slightly lighter text for list items */
+}
+
+.mat-panel-title {
+  font-weight: normal; /* Override bold styling if desired */
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100px; /* Reduced width on small screens or consider hiding */
+    padding-top: 10px;
+  }
+  
+  .mat-toolbar-top-fixed {
+    left: 100px; /* Adjusted to match the sidebar's reduced width */
+  }
+
+  .content {
+    margin-left: 100px; /* Adjust to sidebar's new width */
+    margin-top: 56px; /* Adjust if toolbar height changes */
+  }
+}
+
+
+
+
+
+
+.data-table {
+  width: 100%; /* Full width to match other elements */
+  border-collapse: collapse; /* Neat borders */
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd; /* Light gray border for readability */
+  padding: 8px; /* Padding for cell content */
+  text-align: left; /* Align text to the left */
+}
+
+.data-table th {
+  background-color: #f2f2f2; /* Light gray background for headers */
+}
+
+@media screen and (max-width: 768px) {
+  .data-table, .large-map, .full-height-iframe, .short-map {
+    width: 100%;
+    height: auto; /* Adjust height on smaller screens for better readability and interaction */
+  }
+}

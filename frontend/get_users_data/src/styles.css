@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Global styles.css or styles.scss */
+/* Global styles.css or styles.scss */
+.custom-nav-list .mat-list-item a, .custom-nav-list .mat-list-item {
+    color: rgba(0, 0, 0, 0.87); /* Default text color */
+  }
+  
+  .custom-nav-list .mat-list-item:hover, .custom-nav-list .mat-list-item a:hover {
+    color: white !important; /* Force white text on hover */
+  }
+  
