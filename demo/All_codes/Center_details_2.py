@@ -9,8 +9,8 @@ from shapely.geometry import Point, shape
 # Define file paths
 output_folder = config.folder_path
 excel_path = [
-    r"C:\Users\Teja\Downloads\2024-04-29_center.csv",
-    r"C:\Users\Teja\Downloads\2024-05-06_center_Axis.csv"
+    r"C:\Users\Teja\Downloads\center.csv",
+    r"C:\Users\Teja\Downloads\center (2).csv"
 ]
 geojson_path = r"C:\Users\Teja\Downloads\combined_geojson.geojson"
 

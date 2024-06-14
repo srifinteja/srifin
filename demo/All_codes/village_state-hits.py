@@ -5,6 +5,8 @@ import config
 # Read the original Excel file
 #df = pd.read_excel(r"C:\Users\Vijval\Downloads\Village_detail_latest2.xlsx")
 
+## merge latest2 and existing branches for cat 6,7,unknown state wise
+
 # Function to filter and save relevant rows based on state and category
 # Load the main data Excel file
 # main_df = pd.read_excel(r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest2.xlsx")
@@ -43,8 +45,8 @@ def handle_uttar_pradesh():
 categories_of_interest = ['Categ-6', 'Categ-7', 'Unknown']
 
 # Filter and save for Bihar and Karnataka
-filter_by_state_and_category('Bihar', categories_of_interest, 'C:\\Users\\Teja\\Desktop\\Karthik\\demo\\py_outputs\\Village_Bihar_hits.xlsx')
-filter_by_state_and_category('Karnataka', categories_of_interest, 'C:\\Users\\Teja\\Desktop\\Karthik\\demo\\py_outputs\\Village_Karnataka_hits.xlsx')
+filter_by_state_and_category('Bihar', categories_of_interest, f"{config.folder_path}\\Village_Bihar_hits.xlsx")
+filter_by_state_and_category('Karnataka', categories_of_interest, f"{config.folder_path}\\Village_Karnataka_hits.xlsx")
 
 # Handle Uttar Pradesh specific filtering and saving
 handle_uttar_pradesh()

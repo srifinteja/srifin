@@ -37,7 +37,26 @@ names_ka = [
 'Kittur'
 ]
 names_up = [
+    'Ayodhya',
     'Hathras',
+    # 'Karwi',
+    'Jhansi',
+    'Lalitpur',
+    'Hamirpur',
+    'Mawana',
+    'Siyana',
+    'Mathura',
+    'Meerganj',
+    'Shahjahanpur',
+    'Banda',
+    'Baraut',
+    'Bahraich',
+    'Gopiganj',
+    'Nanpara',
+    'Madhuban',
+    'Balrampur',
+    'Uruwa Bazar',
+    'Tetari Bazar',
 'Jalesar',
 'Shivpur',
 'Gorakhpur',
@@ -121,12 +140,13 @@ for name in names_br:
     # Optional: Convert entire DataFrame to strings if necessary and replace 'nan' with ''
     # This step might not be needed depending on your exact requirements
     result_df = result_df.replace(np.nan, '')  # Replace np.nan with empty strings globally if you prefer
+    # print(result_df.columns)
     # "C:\Users\Teja\Downloads\Vijval\mixed"
-    last_column_name = result_df.columns[-4]
+    last_column_name = result_df.columns[-5]
     # print(last_column_name)
     # Drop the last column by its position
 # This assumes the last column is the one to remove; adjust if the scenario changes
-    result_df = result_df.drop(result_df.columns[-4], axis=1)
+    result_df = result_df.drop(result_df.columns[-5], axis=1)
     # result_df.to_excel(f"{config.folder_path}\\mixedd\\{name}_Mixed_Map.xlsx", index=False)
     # Save the result to the parent directory in the 'mixedd' folder
     result_df.to_excel(os.path.join(parent_dir, "mixedd", f"{name}_Mixed_Map.xlsx"), index=False)
@@ -201,10 +221,10 @@ for name in names_ka:
     # This step might not be needed depending on your exact requirements
     result_df = result_df.replace(np.nan, '')  # Replace np.nan with empty strings globally if you prefer
     # "C:\Users\Teja\Downloads\Vijval\mixed"
-    last_column_name = result_df.columns[-4]
+    last_column_name = result_df.columns[-5]
     # Drop the last column by its position
 # This assumes the last column is the one to remove; adjust if the scenario changes
-    result_df = result_df.drop(result_df.columns[-4], axis=1)
+    result_df = result_df.drop(result_df.columns[-5], axis=1)
     # print(last_column_name)
     # result_df.to_excel(f'C:\\Users\\Teja\\Desktop\\karthik\\demo\\mixedd\\{name}_Mixed_Map.xlsx', index=False)
     # result_df.to_excel(f"{config.folder_path}\\mixedd\\{name}_Mixed_Map.xlsx", index=False)
@@ -281,11 +301,11 @@ for name in names_up:
     # This step might not be needed depending on your exact requirements
     result_df = result_df.replace(np.nan, '')  # Replace np.nan with empty strings globally if you prefer
     # "C:\Users\Teja\Downloads\Vijval\mixed"
-    last_column_name = result_df.columns[-4]
+    last_column_name = result_df.columns[-5]
     # print(last_column_name)
     # Drop the last column by its position
 # This assumes the last column is the one to remove; adjust if the scenario changes
-    result_df = result_df.drop(result_df.columns[-4], axis=1)
+    result_df = result_df.drop(result_df.columns[-5], axis=1)
     # C:\Users\Teja\Desktop\karthik\demo\mixedd
     # result_df.to_excel(f'C:\\Users\\Teja\\Desktop\\karthik\\demo\\mixedd\\{name}_Mixed_Map.xlsx', index=False)
     # result_df.to_excel(f"{config.folder_path}\\mixedd\\{name}_Mixed_Map.xlsx", index=False)

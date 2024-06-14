@@ -3,6 +3,8 @@ import sys
 sys.path.append('/path/to/directory')
 import config
 
+#in latestt1 file how many times columnstocheck has repeated,this count is stored in hit column.#rec_branch is how many branches(bcode value) are there for censsuscode2011.
+
 # Load the Excel file into a pandas DataFrame
 # C:\Users\Teja\Desktop\Karthik\demo\py_outputs\
 # df = pd.read_excel(r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest1.xlsx")

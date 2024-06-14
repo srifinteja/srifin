@@ -6,7 +6,7 @@ sys.path.append('/path/to/directory')
 import config
 
 # Define file paths
-excel_path = [r"C:\Users\Teja\Downloads\2024-04-29_village.csv",r"C:\Users\Teja\Downloads\2024-05-06_village_Axis.csv"]
+excel_path = [r"C:\Users\Teja\Downloads\village.csv",r"C:\Users\Teja\Downloads\village (2).csv"]
 geojson_path = r"C:\Users\Teja\Downloads\combined_geojson.geojson"
 
 # Load and concatenate Excel data
@@ -44,6 +44,7 @@ gdf_excel = gpd.GeoDataFrame(
 )
 
 # Initialize columns in gdf_excel for the GeoJSON properties
+#fetching only these columns from geojson
 geojson_props = ["Village", "Pincode", "Remarks", "district", "state", "tot_p_2011", "no_hh_2011", "censuscode2011"]
 for prop in geojson_props:
     gdf_excel[prop] = None

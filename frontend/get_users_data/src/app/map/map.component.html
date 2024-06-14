@@ -54,19 +54,25 @@
 <div *ngIf="mapM">
   <app-legend3></app-legend3>
   <!-- Primary Categories -->
-  <div>
-    <input type="checkbox" [(ngModel)]="allowedVisible" (change)="toggleAllowedVisibility($event)">
-    <label>Allowed</label>
-
-    <input type="checkbox" [(ngModel)]="notAllowedVisible" (change)="toggleNotAllowedVisibility($event)">
-    <label>Not Allowed</label>
-
-    <input type="checkbox" [(ngModel)]="unexploredVisible" (change)="toggleUnexploredVisibility($event)">
-    <label>Unexplored</label>
-    <button (click)="toggleRouteLayer()">Toggle Route Layer</button>
-    
+  <div class="controls">
+    <div class="control-group">
+      <input type="checkbox" id="allowed" [(ngModel)]="allowedVisible" (change)="toggleAllowedVisibility($event)">
+      <label for="allowed">Allowed</label>
+    </div>
+    <div class="control-group">
+      <input type="checkbox" id="not-allowed" [(ngModel)]="notAllowedVisible" (change)="toggleNotAllowedVisibility($event)">
+      <label for="not-allowed">Not Allowed</label>
+    </div>
+    <div class="control-group">
+      <input type="checkbox" id="unexplored" [(ngModel)]="unexploredVisible" (change)="toggleUnexploredVisibility($event)">
+      <label for="unexplored">Unexplored</label>
+    </div>
+    <div>
+    <button class="download-button" (click)="downloadCsv()">Download Excel</button>
+  </div>
   </div>
 </div>
+
 
 
 
@@ -179,7 +185,7 @@
   <h2>Location Details</h2>
   <p><strong>Census Code 2011:</strong> {{MixData.censuscode2011}}</p>
   <p><strong>Village:</strong> {{MixData.village}}</p>
-  <p><strong>Pincode:</strong> {{MixData.pincode}}</p>
+  <p><strong>Bdist:</strong> {{ formatBranchDistance(MixData.branch_Distance) }}</p>
   <p><strong>District:</strong> {{MixData.district}}</p>
   <p><strong>Population:</strong> {{MixData.population}}</p>
   <p><strong>Households:</strong> {{MixData.houseHolds}}</p>
@@ -215,6 +221,7 @@
       <!-- General Counts -->
       <div class="general-counts">
         <h3>General Counts</h3>
+        
         <p><strong>Unique Total Census Codes:</strong> {{ filterResults[0]?.unique }}</p>
         <p><strong>Rural Count:</strong> {{ filterResults[0]?.urCounts?.Rural }}</p>
         <p><strong>Urban Count:</strong> {{ filterResults[0]?.urCounts?.Urban }}</p>

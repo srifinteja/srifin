@@ -172,6 +172,7 @@ export interface mixData {
   center: string;
   state: string;
   visited: string;
+  branch_Distance:string;
   catStatus: string;
   key: string;
 }

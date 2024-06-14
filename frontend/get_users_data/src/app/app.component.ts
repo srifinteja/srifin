@@ -36,7 +36,7 @@ type LocationId = "kala" | "basa" | "yadg" | "bija" | "kama" | "have" | "bela" |
   "sham" | "hubb" | "shah" | "rane" | "darb" | "sakr" | "phul" | "runn" | "beni" | "sahe" | 
   "rose" | "sheo" | "kant" | "sita" | "sama" | "hath" | "jale" | 
   "shiv" | "gora" | "chau" | "tund" | "alig" | "ikau" | "khad" | "capt" | 
-  "tara" | "maho" | "nich" | "kira" | "mix" | "latestSourcing" | "kitt"|
+  "tara" | "maho" | "nich" | "kira" |"band"|"ayod"|"uruw"|"hami"|"gopi"|"math"|"nanp"|"lali"|"jhan"|"teta"|"bahr"|"balr"|"madh"|"karw"| "mix" |"band"| "latestSourcing" | "kitt"|
   "combined" | "under15" | "census";
 
 
@@ -101,6 +101,8 @@ export class AppComponent implements OnInit {
   showUpDropdown = false;
   // branches = ['shivpur']; // Example branch names
   // selectedBranch: string;
+    uploadFormVisible = false;
+  selectedFile: File | null = null;
   map!: Map;
   maps: string| null = null;
   isKalaburgiUser: boolean = false;
@@ -129,10 +131,11 @@ export class AppComponent implements OnInit {
   "sham" | "hubb" | "shah" | "rane" | "darb" | "sakr" | "phul" | "runn" | "beni" | "sahe" | 
   "rose" | "sheo" | "kant" | "sita" | "sama" | "hath" | "jale" | "kitt"|
   "shiv" | "gora" | "chau" | "tund" | "alig" | "ikau" | "khad" | "capt" | 
-  "tara" | "maho" | "nich" | "kira" | "mix" ;
+  "tara" | "maho" | "nich" | "kira"|"band"|"ayod"|"uruw"|"hami"|"gopi"|"math"|"nanp"|"lali"|"jhan"|"teta"|"bahr"|"balr"|"madh"|"karw" |"band"| "mix" ;
   mapt: string = '';
   mapS:string = '';
   sample:string = 'teja';
+  uploadPath:string = '';
   isVisible: boolean = false;
   kalocations: Location[] =[
     { id: 'kala', name: 'Kalaburgi' },
@@ -184,6 +187,20 @@ export class AppComponent implements OnInit {
     { id: 'tara', name: 'Tarabganj' },
     { id: 'maho', name: 'Mahoba' },
     { id: 'nich', name: 'Nichlaul' },
+    { id: 'band', name: 'Banda' },
+    { id: 'uruw', name: 'Uruwa Bazar' },
+    { id: 'hami', name: 'Hamirpur' },
+    { id: 'gopi', name: 'Gopiganj' },
+    { id: 'math', name: 'Mathura' },
+    { id: 'nanp', name: 'Nanpara' },
+    { id: 'lali', name: 'Lalitpur' },
+    { id: 'jhan', name: 'Jhansi' },
+    { id: 'teta', name: 'Tetari Bazar' },
+    { id: 'bahr', name: 'Bahraich' },
+    { id: 'balr', name: 'Balrampur' },
+    { id: 'madh', name: 'Madhuban' },
+    { id: 'karw', name: 'Karwi' },
+    { id: 'ayod', name: 'Ayodhya' }
     
 
   ];
@@ -655,6 +672,43 @@ this.loadPath(url);
     });
   }
   
+  showUploadForm(): void {
+    this.uploadFormVisible = true;
+  }
+
+  onFileChange(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  async onSubmit(): Promise<void> {
+    if (this.selectedFile) {
+      try {
+        // Use the File System Access API to allow the user to choose a directory and save the file
+        const opts = {
+          types: [
+            {
+              description: 'CSV Files',
+              accept: {
+                'text/csv': ['.csv']
+              }
+            }
+          ]
+        };
+        
+        const fileHandle = await (window as any).showSaveFilePicker(opts);
+        const writableStream = await fileHandle.createWritable();
+        await writableStream.write(this.selectedFile);
+        await writableStream.close();
+
+        console.log('File uploaded and saved successfully');
+        this.uploadFormVisible = false;
+        this.selectedFile = null;
+      } catch (error) {
+        console.error('Error saving file', error);
+      }
+    }
+  }
+
   private createAndDisplayRoute(data: any[]) {
     
     const coordinates = data.map(point => fromLonLat([point.longitude, point.latitude]) as Coordinate);
@@ -791,10 +845,10 @@ private getChartOptions() {
   logOut() {
     // Implement log out logic here
   }
-  
+  // <iframe title="Average time for group formation(app_date)" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=070116f3-49e7-4a84-a97e-b37461cef686&autoAuth=true&ctid=871c73fc-63e3-4f99-8eae-d772983c376b" frameborder="0" allowFullScreen="true"></iframe>
 
   redirectToSrifin(): void {
-    this.externalUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://srifincreditproduct.srifin.com/');
+    this.externalUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://app.powerbi.com/reportEmbed?reportId=070116f3-49e7-4a84-a97e-b37461cef686');
     this.showMap = false; 
   }
 
@@ -851,7 +905,7 @@ getNegative_br(): Observable<negativeMaps[]> {
   "sham" | "hubb" | "shah" | "rane" | "darb" | "sakr" | "phul" | "runn" | "beni" | "sahe" | 
   "rose" | "sheo" | "kant" | "sita" | "sama"| "hath" | "jale" | "kitt"|
   "shiv" | "gora" | "chau" | "tund" | "alig" | "ikau" | "khad"  | "capt" | 
-   "tara" | "maho" | "nich" | "kira" | "mix"){
+   "tara" | "maho" | "nich" | "kira" |"ayod"|"band"|"uruw"|"hami"|"gopi"|"math"|"nanp"|"lali"|"jhan"|"teta"|"bahr"|"balr"|"madh"|"karw"| "mix"){
     this.currentMapType = mapType;
     this.showOptionsDropdown = true;
     this.showeast = false;
@@ -940,7 +994,7 @@ getNegative_br(): Observable<negativeMaps[]> {
   "sham" | "hubb" | "shah" | "rane" | "darb" | "sakr" | "phul" | "runn" | "beni" | "sahe" | 
   "rose" | "sheo" | "kant" | "sita" | "sama"| "hath" | "jale" | "kitt"|
   "shiv" | "gora" | "chau" | "tund" | "alig" | "ikau" | "khad"  | "capt" | 
-   "tara" | "maho" | "nich" | "kira" | "mix" ) {
+   "tara" | "maho" | "nich" | "kira" |"ayod"|"band"|"uruw"|"hami"|"gopi"|"math"|"nanp"|"lali"|"jhan"|"teta"|"bahr"|"balr"|"madh"|"karw"| "mix" ) {
   // Hide the map with a small delay
   this.currentMapType = mapType;
   this.showSource = false;

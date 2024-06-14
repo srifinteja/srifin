@@ -8,10 +8,10 @@ import config
 # df1 = pd.read_excel(r"C:\Users\Teja\Downloads\Vijval\Center_detail_Latest3.xlsx")  # Adjust the path to your first Excel file
 df1 = pd.read_excel(f"{config.folder_path}\\Center_detail_Latest3.xlsx")
 # Load the first CSV file
-df2_1 = pd.read_csv(r"C:\Users\Teja\Downloads\Axis_LA.csv")
+df2_1 = pd.read_csv(r"C:\Users\Teja\Downloads\49b3fa39-dcc5-4eb4-9277-e053c3463e57.csv")
 
 # Load the second CSV file
-df2_2 = pd.read_csv(r"C:\Users\Teja\Downloads\loan_app.csv")
+df2_2 = pd.read_csv(r"C:\Users\Teja\Downloads\loan_allications report 29.csv")
 
 # Combine the two dataframes
 df2 = pd.concat([df2_1, df2_2], ignore_index=True)

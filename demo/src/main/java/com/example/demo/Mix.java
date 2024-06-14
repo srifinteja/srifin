@@ -27,7 +27,7 @@ public class Mix {
     private String center;
     private String state;
     private String visited;
-
+    private String Branch_Distance;
     public int getCensuscode2011() {
         return censuscode2011;
     }
@@ -42,6 +42,14 @@ public class Mix {
 
     public void setVillage(String village) {
         this.village = village;
+    }
+
+    public String getBranch_Distance() {
+        return Branch_Distance;
+    }
+
+    public void setBranch_Distance(String branch_Distance) {
+        Branch_Distance = branch_Distance;
     }
 
     public String getPincode() {

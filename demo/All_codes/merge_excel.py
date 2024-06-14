@@ -2,6 +2,9 @@ import pandas as pd
 import sys
 sys.path.append('/path/to/directory')
 import config
+
+##merge 1,2,3,7 into single excel file
+
 # The names of the files to merge
 # file_names = [r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest1.xlsx",r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest2.xlsx", r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest3.xlsx", r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest7.xlsx"]
 file_names = [f"{config.folder_path}\\Village_detail_latest1.xlsx",f"{config.folder_path}\\Village_detail_latest2.xlsx", f"{config.folder_path}\\Village_detail_latest3.xlsx", f"{config.folder_path}\\Village_detail_latest7.xlsx"]

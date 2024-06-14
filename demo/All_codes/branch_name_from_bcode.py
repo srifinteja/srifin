@@ -4,6 +4,8 @@ import sys
 sys.path.append('/path/to/directory')
 import config
 # Load the Excel files into pandas DataFrames
+
+#mapping from branch name from bcode
 # Desktop\Karthik\demo\py_outputs\
 # df_by = pd.read_excel(r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest2.xlsx", sheet_name='Sheet1')
 df_by= pd.read_excel(f"{config.folder_path}\\Village_detail_latest2.xlsx",sheet_name='Sheet1')

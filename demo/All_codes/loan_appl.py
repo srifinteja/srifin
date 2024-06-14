@@ -5,9 +5,19 @@ import config
 # Load the Excel files
 # df1 = pd.read_excel(r"C:\Users\Teja\Downloads\Vijval\Center_detail_Latest3.xlsx")  # Adjust the path to your first Excel file
 df1 = pd.read_excel(f"{config.folder_path}\\Center_detail_Latest3.xlsx")  # Adjust the path to your first Excel file
-df2 = pd.read_csv(r"C:\Users\Teja\Downloads\25979d67-3481-4c53-94e8-96a92c6e6bd7.csv", low_memory=False)
+# df2 = pd.read_csv(r"C:\Users\Teja\Downloads\loan_allications report 29.csv", low_memory=False)
   # Adjust the path to your second Excel file
+# Reading the first CSV file
+df2 = pd.read_csv(r"C:\Users\Teja\Downloads\loan_allications report 29.csv", low_memory=False)
 
+# Reading the second CSV file
+df3 = pd.read_csv(r"C:\Users\Teja\Downloads\49b3fa39-dcc5-4eb4-9277-e053c3463e57.csv", low_memory=False)
+
+# Concatenating the two DataFrames along the rows
+df2 = pd.concat([df3, df2], ignore_index=True)
+
+# Storing the merged DataFrame in df2
+# df2 = merged_df
 # Clean or fill NaN values in 'center' and 'app_status' columns in df2
 df2['center'] = df2['center'].fillna('')  # Replace NaN with empty strings or handle appropriately
 df2['app_status'] = df2['app_status'].fillna('')  # Replace NaN with empty strings

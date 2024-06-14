@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://TEJAKUMAR-INTER:1433;databaseName=teja;encrypt=true;trustServerCertificate=true
+    url: jdbc:sqlserver://TEJAKUMAR-INTER:1433;databaseName=sample;encrypt=true;trustServerCertificate=true
 #    url: jdbc:sqlserver://;serverName=TEJAKUMAR-INTER;databaseName=master
     username: sa
     password: Teja@595

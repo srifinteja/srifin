@@ -3,6 +3,9 @@ from openpyxl import load_workbook
 import sys
 sys.path.append('/path/to/directory')
 import config
+
+#how many villages a branch cover
+#for each branch how many villages
 # Load the Excel file
 # C:\Users\Teja\Desktop\Karthik\demo\py_outputs\
 # file_path = r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest2.xlsx"

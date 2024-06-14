@@ -2,6 +2,9 @@ import pandas as pd
 import sys
 sys.path.append('/path/to/directory')
 import config
+
+## for a censuscode there are multiple mappings ,combine them in single row
+
 # Replace 'your_excel_file.xlsx' with the actual path to your Excel file
 # file_path = r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest2.xlsx"
 file_path= f"{config.folder_path}\\Village_detail_latest2.xlsx"

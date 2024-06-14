@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 sys.path.append('/path/to/directory')
 import config
-villages_up = ['Aligarh', 'Ayodhya', 'Shikarpur','Hathras','Jalesar','Shivpur','Gorakhpur','Chauri Chaura','Tundla','Ikauna','Khadda','Captainganj','Tarabganj','Mahoba','Nichlaul','Kiraoli','Fatehabad']
+villages_up = ['Aligarh','Shahjahanpur', 'Banda','Jhansi','Lalitpur','Hamirpur','Mathura','Baraut','Meerganj','Ayodhya','Mawana','Siyana','Nanpara','Gopiganj','Bahraich','Balrampur','Uruwa Bazar','Tetari Bazar', 'Madhuban','Shikarpur','Hathras','Jalesar','Shivpur','Gorakhpur','Chauri Chaura','Tundla','Ikauna','Khadda','Captainganj','Tarabganj','Mahoba','Nichlaul','Kiraoli','Fatehabad']
 villages_ka = ['Kalaburgi', 'Basavakalyan', 'Yadgir', 'Bijapur', 'Kamalapur', 'Haveri', 
             'Belagavi', 'Chitguppa', 'Lokapur', 'Gokak', 'Shamanur', 'Hubbali', 
             'Shahpur', 'Ranebennur', 'Kittur']
@@ -12,7 +12,7 @@ villages_br = [ 'Darbhanga', 'Sakri', 'Phulparas',
 villag = villages_br+villages_ka+villages_up
 
 columns_to_fill = ['Population','Households']  
-# print(villag)
+# print(villag)s
 states=['UP','BR','KA']
 for village in villages_up:
     # Load the first Excel file (as per your description df1 should be the second file and df2 the first file)
@@ -28,13 +28,14 @@ for village in villages_up:
 
     # Perform a left join on 'censuscode2011', including the 'Jun_23_Cat' column from df1
     merged_df = df2.merge(df1[['censuscode2011']], on='censuscode2011', how='left', indicator=True)
+    # print(merged_df.columns)
 
     # Add 'Track-status' column based on the merge indicator
     merged_df['Track-status'] = merged_df['_merge'].apply(lambda x: 'Visited' if x == 'both' else 'Yet-To-Visit')
     # print(merged_df.columns)
 
     # Select only the columns you want to output
-    output_columns = ['censuscode2011', 'Village', 'Pincode', 'district', 'state', 'tot_p_2011', 'no_hh_2011', 'lat_min_bound_centroid', 'long_min_bound_centroid', 'Final_Cat', 'Track-status']
+    output_columns = ['censuscode2011', 'Village', 'Pincode', 'district', 'state', 'tot_p_2011', 'no_hh_2011', 'lat_min_bound_centroid', 'long_min_bound_centroid', 'Final_Cat', 'Track-status','b_dist']
     final_output = merged_df[output_columns]
     # Rename columns
     new_column_names = {
@@ -48,7 +49,8 @@ for village in villages_up:
         'lat_min_bound_centroid': 'lat_min_bound_centroid',
         'long_min_bound_centroid': 'long_min_bound_centroid',
         'Final_Cat': 'Jun_23_Cat',
-        'Track-status': 'Visited'
+        'Track-status': 'Visited',
+        'b_dist': 'Branch Distance'
     }
 
     final_output_renamed = final_output.rename(columns=new_column_names)
@@ -65,12 +67,15 @@ for village in villages_up:
         'lat_min_bound_centroid',
         'long_min_bound_centroid',
         'Jun_23_Cat',
-        'Visited'
+        'Visited',
+        'Branch Distance'
     ]
 
     final_output_reordered = final_output_renamed.reindex(columns=desired_column_order)
     output_path = f"{config.folder_path}\\villages\\{village}_Source_Map.xlsx"
+    print(final_output_renamed)
     final_output_reordered.to_excel(output_path, index=False)
+    # print(final_output_reordered.columns)
     # Save the result to a new Excel file
     # final_output_reordered.to_excel(rf'C:\Users\Teja\Desktop\Karthik\demo\py_outputs\villages\{village}_Source_Map.xlsx', index=False)
     # final_output_reordered.to_excel(config.folder_path +"\\villages"+ '\\{village}_Source_Map.xlsx', index=False)
@@ -121,6 +126,7 @@ for village in villages_up:
 
     # Rename 'tru_2011' column to 'U/R'
     village_details_df.rename(columns={'tru_2011': 'U/R'}, inplace=True)
+    print(village_details_df.columns)
 
     # Debug: print the columns after renaming
     # print("Columns after renaming:", village_details_df.columns.tolist())
@@ -137,7 +143,8 @@ for village in villages_up:
         'lat_min_bound_centroid': 'lat_min_bound_centroid',
         'long_min_bound_centroid': 'long_min_bound_centroid',
         'Final_Cat': 'Jun_23_Cat',
-        'Track-status': 'Visited'
+        'Track-status': 'Visited',
+        'Branch Distance': 'Branch Distance'
     }
 
     # Ensure no duplicate columns after renaming
@@ -162,7 +169,8 @@ for village in villages_up:
         'lat_min_bound_centroid', 
         'long_min_bound_centroid', 
         'Jun_23_Cat', 
-        'Visited'
+        'Visited',
+        'Branch Distance'
     ]
 
     # Debug: check for duplicates in desired_column_order
@@ -181,12 +189,16 @@ for village in villages_up:
 
     # Save the updated DataFrame back to the Excel file
     village_details_df.to_excel(village_details_path, index=False, engine='openpyxl')
+    print(village_details_df)
 
     print("The Village_Details.xlsx file has been updated with the 'U/R' column and reordered.")
 
 
 
     print(f"The Village_Details.xlsx file has been updated with tru_2011 data.")
+    
+        
+
     
     
 for village in villages_ka:
@@ -203,13 +215,14 @@ for village in villages_ka:
 
     # Perform a left join on 'censuscode2011', including the 'Jun_23_Cat' column from df1
     merged_df = df2.merge(df1[['censuscode2011']], on='censuscode2011', how='left', indicator=True)
+    # print(merged_df.columns)
 
     # Add 'Track-status' column based on the merge indicator
     merged_df['Track-status'] = merged_df['_merge'].apply(lambda x: 'Visited' if x == 'both' else 'Yet-To-Visit')
     # print(merged_df.columns)
 
     # Select only the columns you want to output
-    output_columns = ['censuscode2011', 'Village', 'Pincode', 'district', 'state', 'tot_p_2011', 'no_hh_2011', 'lat_min_bound_centroid', 'long_min_bound_centroid', 'Final_Cat', 'Track-status']
+    output_columns = ['censuscode2011', 'Village', 'Pincode', 'district', 'state', 'tot_p_2011', 'no_hh_2011', 'lat_min_bound_centroid', 'long_min_bound_centroid', 'Final_Cat', 'Track-status','b_dist']
     final_output = merged_df[output_columns]
     # Rename columns
     new_column_names = {
@@ -223,7 +236,8 @@ for village in villages_ka:
         'lat_min_bound_centroid': 'lat_min_bound_centroid',
         'long_min_bound_centroid': 'long_min_bound_centroid',
         'Final_Cat': 'Jun_23_Cat',
-        'Track-status': 'Visited'
+        'Track-status': 'Visited',
+        'b_dist': 'Branch Distance'
     }
 
     final_output_renamed = final_output.rename(columns=new_column_names)
@@ -240,12 +254,15 @@ for village in villages_ka:
         'lat_min_bound_centroid',
         'long_min_bound_centroid',
         'Jun_23_Cat',
-        'Visited'
+        'Visited',
+        'Branch Distance'
     ]
 
     final_output_reordered = final_output_renamed.reindex(columns=desired_column_order)
     output_path = f"{config.folder_path}\\villages\\{village}_Source_Map.xlsx"
+    print(final_output_renamed)
     final_output_reordered.to_excel(output_path, index=False)
+    # print(final_output_reordered.columns)
     # Save the result to a new Excel file
     # final_output_reordered.to_excel(rf'C:\Users\Teja\Desktop\Karthik\demo\py_outputs\villages\{village}_Source_Map.xlsx', index=False)
     # final_output_reordered.to_excel(config.folder_path +"\\villages"+ '\\{village}_Source_Map.xlsx', index=False)
@@ -296,6 +313,7 @@ for village in villages_ka:
 
     # Rename 'tru_2011' column to 'U/R'
     village_details_df.rename(columns={'tru_2011': 'U/R'}, inplace=True)
+    print(village_details_df.columns)
 
     # Debug: print the columns after renaming
     # print("Columns after renaming:", village_details_df.columns.tolist())
@@ -312,7 +330,8 @@ for village in villages_ka:
         'lat_min_bound_centroid': 'lat_min_bound_centroid',
         'long_min_bound_centroid': 'long_min_bound_centroid',
         'Final_Cat': 'Jun_23_Cat',
-        'Track-status': 'Visited'
+        'Track-status': 'Visited',
+        'Branch Distance': 'Branch Distance'
     }
 
     # Ensure no duplicate columns after renaming
@@ -337,7 +356,8 @@ for village in villages_ka:
         'lat_min_bound_centroid', 
         'long_min_bound_centroid', 
         'Jun_23_Cat', 
-        'Visited'
+        'Visited',
+        'Branch Distance'
     ]
 
     # Debug: check for duplicates in desired_column_order
@@ -356,6 +376,7 @@ for village in villages_ka:
 
     # Save the updated DataFrame back to the Excel file
     village_details_df.to_excel(village_details_path, index=False, engine='openpyxl')
+    print(village_details_df)
 
     print("The Village_Details.xlsx file has been updated with the 'U/R' column and reordered.")
 
@@ -379,13 +400,14 @@ for village in villages_br:
 
     # Perform a left join on 'censuscode2011', including the 'Jun_23_Cat' column from df1
     merged_df = df2.merge(df1[['censuscode2011']], on='censuscode2011', how='left', indicator=True)
+    # print(merged_df.columns)
 
     # Add 'Track-status' column based on the merge indicator
     merged_df['Track-status'] = merged_df['_merge'].apply(lambda x: 'Visited' if x == 'both' else 'Yet-To-Visit')
     # print(merged_df.columns)
 
     # Select only the columns you want to output
-    output_columns = ['censuscode2011', 'Village', 'Pincode', 'district', 'state', 'tot_p_2011', 'no_hh_2011', 'lat_min_bound_centroid', 'long_min_bound_centroid', 'Final_Cat', 'Track-status']
+    output_columns = ['censuscode2011', 'Village', 'Pincode', 'district', 'state', 'tot_p_2011', 'no_hh_2011', 'lat_min_bound_centroid', 'long_min_bound_centroid', 'Final_Cat', 'Track-status','b_dist']
     final_output = merged_df[output_columns]
     # Rename columns
     new_column_names = {
@@ -399,7 +421,8 @@ for village in villages_br:
         'lat_min_bound_centroid': 'lat_min_bound_centroid',
         'long_min_bound_centroid': 'long_min_bound_centroid',
         'Final_Cat': 'Jun_23_Cat',
-        'Track-status': 'Visited'
+        'Track-status': 'Visited',
+        'b_dist': 'Branch Distance'
     }
 
     final_output_renamed = final_output.rename(columns=new_column_names)
@@ -416,12 +439,15 @@ for village in villages_br:
         'lat_min_bound_centroid',
         'long_min_bound_centroid',
         'Jun_23_Cat',
-        'Visited'
+        'Visited',
+        'Branch Distance'
     ]
 
     final_output_reordered = final_output_renamed.reindex(columns=desired_column_order)
     output_path = f"{config.folder_path}\\villages\\{village}_Source_Map.xlsx"
+    print(final_output_renamed)
     final_output_reordered.to_excel(output_path, index=False)
+    # print(final_output_reordered.columns)
     # Save the result to a new Excel file
     # final_output_reordered.to_excel(rf'C:\Users\Teja\Desktop\Karthik\demo\py_outputs\villages\{village}_Source_Map.xlsx', index=False)
     # final_output_reordered.to_excel(config.folder_path +"\\villages"+ '\\{village}_Source_Map.xlsx', index=False)
@@ -472,6 +498,7 @@ for village in villages_br:
 
     # Rename 'tru_2011' column to 'U/R'
     village_details_df.rename(columns={'tru_2011': 'U/R'}, inplace=True)
+    print(village_details_df.columns)
 
     # Debug: print the columns after renaming
     # print("Columns after renaming:", village_details_df.columns.tolist())
@@ -488,7 +515,8 @@ for village in villages_br:
         'lat_min_bound_centroid': 'lat_min_bound_centroid',
         'long_min_bound_centroid': 'long_min_bound_centroid',
         'Final_Cat': 'Jun_23_Cat',
-        'Track-status': 'Visited'
+        'Track-status': 'Visited',
+        'Branch Distance': 'Branch Distance'
     }
 
     # Ensure no duplicate columns after renaming
@@ -513,7 +541,8 @@ for village in villages_br:
         'lat_min_bound_centroid', 
         'long_min_bound_centroid', 
         'Jun_23_Cat', 
-        'Visited'
+        'Visited',
+        'Branch Distance'
     ]
 
     # Debug: check for duplicates in desired_column_order
@@ -532,6 +561,7 @@ for village in villages_br:
 
     # Save the updated DataFrame back to the Excel file
     village_details_df.to_excel(village_details_path, index=False, engine='openpyxl')
+    print(village_details_df)
 
     print("The Village_Details.xlsx file has been updated with the 'U/R' column and reordered.")
 
@@ -539,4 +569,6 @@ for village in villages_br:
 
     print(f"The Village_Details.xlsx file has been updated with tru_2011 data.")
     
+        
+
     

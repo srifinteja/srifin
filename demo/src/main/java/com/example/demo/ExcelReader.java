@@ -315,8 +315,9 @@ data.add(negativeData);
                 censusData.setCenter((String) getCellStringValue(currentRow.getCell(23)));
                 censusData.setState((String) getCellStringValue(currentRow.getCell(24)));
                 censusData.setVisited((String) getCellStringValue(currentRow.getCell(25)));
-                censusData.setCatStatus((String) getCellStringValue(currentRow.getCell(26)));
-                censusData.setKey((String) getCellStringValue(currentRow.getCell(27)));
+                censusData.setBranch_Distance((String) getCellStringValue(currentRow.getCell(26)));
+                censusData.setCatStatus((String) getCellStringValue(currentRow.getCell(27)));
+                censusData.setKey((String) getCellStringValue(currentRow.getCell(28)));
 
 
                 // Continue for other fields based on their Excel column indices

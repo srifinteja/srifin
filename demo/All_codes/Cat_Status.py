@@ -2,6 +2,12 @@ import pandas as pd
 import sys
 sys.path.append('/path/to/directory')
 import config
+
+##pincode without rec_ came from original village files
+##pincode with rec_ came from geojson file
+#now pincode is renamed to cat
+#now rec_pincode is renamed to cat_tracked
+#then cat1-5 are allowed else not allowed
 # Load the Excel files
 # C:\\Users\\Teja\\Desktop\\Karthik\\demo\\py_outputs\\
 # village_details_path = r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest1.xlsx"

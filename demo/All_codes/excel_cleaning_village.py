@@ -2,6 +2,8 @@ import pandas as pd
 import sys
 sys.path.append('/path/to/directory')
 import config
+#removing additional columns and renaming columns
+
 # Step 1: Read the Excel file
 # C:\\Users\\Teja\\Desktop\\Karthik\\demo\\py_outputs\\
 # df = pd.read_excel(r"C:\Users\Teja\Desktop\Karthik\demo\py_outputs\Village_detail_latest.xlsx")  # Replace 'path_to_your_excel_file.xlsx' with the actual path
@@ -25,6 +27,7 @@ columns_to_rename_right = {
 df.rename(columns=columns_to_rename_right, inplace=True)
 
 # Step 4: Rename other specified columns by adding 'rec_'
+#columns present in original villages files add recorded at the start.
 columns_to_rename_rec = {
     'Branch': 'rec_Branch','Village ID': 'rec_VillageID','Village Name':'rec_VillageName','Pin code':'rec_Pincode','Latitude':'rec_Latitude','Longitude':'rec_Longitude','District':'rec_District','State':'rec_State'
 

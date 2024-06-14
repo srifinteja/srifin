@@ -45,6 +45,8 @@ scripts = [
     'Branch_village_count.py',
     'censuscode_merge_village.py',
     'merge_excel.py',
+    
+    
     'Center_details_2.py',
     'add_Tru_center.py',
     'excel_cleaning.py',
@@ -54,11 +56,11 @@ scripts = [
     'Bcode_from_BName.py',
     'loan_appl.py',
     'Center_last.py',
-    
     'censuscode_merge_center.py',
     'center_village_count.py',
     'Center_state_hits.py',
     'merge_center.py',
+    
     'Merge_final.py',
     'final_mix.py',
     'centermix.py',

@@ -45,6 +45,20 @@ interface FilterResult {
   conddisb:number;
   countFlag:number;
 }
+// interface FilterResult {
+//   unique: number;
+//   totalUniqueCensusCodes: number;
+//   urCounts: { Rural: number; Urban: number; };
+//   condition: string;
+//   uniqueCensusCodeCount: number;
+//   totalHouseholds: number;
+//   allowedAndCenterCount: number;
+//   notAllowedAndCenterCount: number;
+//   totalapp: number;
+//   totaldisb: number;
+//   conddisb: number;
+//   countFlag: number;
+// }
 interface FilterIcons{
 
 }
@@ -103,9 +117,13 @@ export class MapComponent implements OnInit,AfterViewInit,OnChanges {
   navyLayer_unexplored!: VectorLayer<VectorSource<Feature<Point>>>;
   notAllowedLayer_notallowed!: VectorLayer<VectorSource<Feature<Point>>>;
   missed1!: VectorLayer<VectorSource<Feature<Point>>>;
+  saveData:mixData[] = [];
+  savecoords:[number,number] = [0,0];
   allowedVisible = true;
 notAllowedVisible = true;
 unexploredVisible = true;
+ EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+ EXCEL_EXTENSION = '.xlsx';
 
  darbcenterCoords: [number, number] = [85.9092286, 26.1705652];
  sakrcenterCoords: [number, number] = [86.0691029, 26.2034595];
@@ -128,14 +146,30 @@ unexploredVisible = true;
  havecenterCoords: [number, number] = [75.393702,14.805786];
  belacenterCoords: [number, number] = [74.5489064,15.8869478];
  chitcenterCoords: [number, number] = [77.21511,17.69763];
- lokacenterCoords: [number, number] = [75.236837,16.161042];
+ lokacenterCoords: [number, number] = [75.37358,16.16054];
  gokacenterCoords: [number, number] = [74.814176,16.10792];
  shamcenterCoords: [number, number] = [75.903002,14.447667];
  hubbcenterCoords: [number, number] = [75.072685,15.392705];
  shahcenterCoords: [number, number] = [76.83125,16.71365];
  ranecenterCoords: [number, number] = [75.63627,14.607483];
-kittcenterCoords:[number,number] = [74.7704604,15.5932899];
+ kittcenterCoords:[number,number] = [74.7704604,15.5932899];
 
+ bahrcenterCoords:[number,number] = [81.5998873,27.5556972];
+ balrcenterCoords:[number,number] = [74.7704604,15.5932899];
+ madhcenterCoords:[number,number] = [83.6868964,26.1616992];
+ karwcenterCoords:[number,number] = [80.884441,25.216421];
+//  centerCoords:[number,number] = [74.7704604,15.5932899];
+ tetacenterCoords:[number,number] = [83.084898,27.265948];
+ uruwcenterCoords:[number,number] = [83.259618,26.4532];
+ hamicenterCoords:[number,number] = [80.152437,25.952854];
+ gopicenterCoords:[number,number] = [82.437765,25.284828];
+ nanpcenterCoords:[number,number] = [81.507697,27.860016];
+ mathcenterCoords:[number,number] = [77.6432839,27.4790867];
+ lalicenterCoords:[number,number] = [78.418582,24.701474];
+ jhancenterCoords:[number,number] = [78.531387,25.465093];
+ ayodcenterCoords:[number,number] = [82.1296497,26.7628866];
+ 
+ 
  hathcenterCoords: [number, number] = [78.0613381,27.5695990];
  jalecenterCoords: [number, number] = [78.2947265,27.466723];
  shivcenterCoords: [number, number] = [82.9498766,25.3526766];
@@ -150,6 +184,7 @@ kittcenterCoords:[number,number] = [74.7704604,15.5932899];
  mahocenterCoords: [number, number] = [79.87318,25.30184];
  nichcenterCoords: [number, number] = [83.732047,27.309857];
  kiracenterCoords: [number, number] = [77.783291,27.1392655];
+ bandcenterCoords: [number, number] = [80.354126,25.489355];
  
  sourceMap: { [key: string]: string } = {
   darb_Source: "Darbhanga",
@@ -191,8 +226,23 @@ kittcenterCoords:[number,number] = [74.7704604,15.5932899];
   maho_Source:"Mahoba",
   nich_Source:"Nichlaul",
   kira_Source:"Kiraoli",
-  kitt_Source:"Kittur"
-  
+  kitt_Source:"Kittur",
+
+  band_Source:"Banda",
+  uruw_Source:"Uruwa Bazar",
+  hami_Source:"Hamirpur",
+  gopi_Source:"Gopiganj",
+  math_Source:"Banda",
+  nanp_Source:"Nanpara",
+  lali_Source:"Lalitpur",
+  jhan_Source:"Jhansi",
+  teta_Source:"Tetari Bazar",
+  bahr_Source:"Bahraich",
+  balr_Source:"Balrampur",
+  madh_Source:"Madhuban",
+  karw_Source:"Karwi",
+  ayod_Source:"Ayodhya"
+ 
   
 };
   @Input() mapType: "census" | "under15" | "combined" | "latestSourcing" | 
@@ -200,7 +250,7 @@ kittcenterCoords:[number,number] = [74.7704604,15.5932899];
   "sham" | "hubb" | "shah" | "rane" | "darb" | "sakr" | "phul" | "runn" | "beni" | "sahe" | 
   "rose" | "sheo" | "kant" | "sita" | "sama" |"hath" |  "jale" | "kitt"|
    "shiv" | "gora" | "chau" | "tund" | "alig" | "ikau" | "khad" | "capt" | 
-  "tara" | "maho" | "nich" | "kira" | "mix" |null
+  "tara" | "maho" | "nich" | "kira" |"ayod"|"band"|"uruw"|"hami"|"gopi"|"math"|"nanp"|"lali"|"jhan"|"teta"|"bahr"|"balr"|"madh"|"karw"| "mix" |null
   ;
 
 // In MapComponent
@@ -251,7 +301,22 @@ private get centerCoordsMap(): { [key: string]: [number, number] } {
     mahoSource:this.mahocenterCoords,
     nichSource:this.nichcenterCoords,
     kiraSource:this.kiracenterCoords,
-    kittSource:this.kittcenterCoords
+    kittSource:this.kittcenterCoords,
+    bandSource:this.bandcenterCoords,
+    bahrSource:this.bahrcenterCoords,
+    balrSource:this.balrcenterCoords,
+    madhSource:this.madhcenterCoords,
+    uruwSource:this.uruwcenterCoords,
+    tetaSource:this.tetacenterCoords,
+    karwSource:this.karwcenterCoords,
+    hamiSource:this.hamicenterCoords,
+    gopiSource:this.gopicenterCoords,
+    nanpSource:this.nanpcenterCoords,
+    mathSource:this.mathcenterCoords,
+    laliSource:this.lalicenterCoords,
+    jhanSource:this.jhancenterCoords,
+    ayodSource:this.ayodcenterCoords
+
 
 
   };
@@ -383,6 +448,7 @@ public triggerMix(): void {
     const sourceKey = baseKey + "Source"; // Keys like "darbSource"
     const sourceeKey = baseKey + "_Source";
     const centerCoords = this.centerCoordsMap[sourceKey];
+    this.savecoords = centerCoords;
     const x = this.sourceMap[sourceeKey];
     this.allowedVisible = true;
     this.notAllowedVisible = true;
@@ -399,10 +465,11 @@ public triggerMix(): void {
       map(results => {
         // Combine both datasets before filtering
         const combinedData = [...results.mixData, ...results.biharData, ...results.updata,...results.kadata];
-      
+      // console.log(results.mixData);
         return this.filterDataByRadius(combinedData, centerCoords);
       })
     ).subscribe(filteredData => {
+      // console.log(filteredData);
       // Process the filtered data that now contains both mixData and biharData
       this.processData(filteredData,centerCoords);
     });
@@ -411,138 +478,151 @@ public triggerMix(): void {
 
 // Generic filter function assuming data items contain latMinBoundCentroid, longMinBoundCentroid or equivalent
 private filterDataByRadius(data: any[], centerCoords: any): any[] {
+  // console.log(data);
   return data.filter(item => {
+
     // Adapt these property accesses based on your actual data structure
     const lat = item.latMinBoundCentroid || item.latitude;
     const lon = item.longMinBoundCentroid || item.longitude;
-    
-    
+    // console.log(lat);
+    // console.log(lon);
+    // const x = this.calculateDistance(centerCoords[1], centerCoords[0], 16.3290416195, 75.2893667735);
+    // console.log(x);
     const distance = this.calculateDistance(centerCoords[1], centerCoords[0], lat, lon);
-    return distance <= this.radius;
+    return distance < this.radius;
   });
 }
-  private processData(data: any[], centerCoords: [number, number]): void {
-    var count = 0;
-    const urCounts = { Rural: 0, Urban: 0 };
-    data.forEach(item => {
-      if(item.ur === 'Urban'){
-      count++;
-      
-      }
-      const urKey = item.ur as 'Rural' | 'Urban';
-      if (urCounts.hasOwnProperty(urKey)) {
-        ++urCounts[urKey];
-      }
-      else{
-        
-      }
-    });
-  
-    const filteredUnique = new Set(data.map(item => item.censuscode2011));
-    const uniq = filteredUnique.size;
-    
-    const conditions = [
-      { visited: "Visited", catStatus: "Allowed" },
-      { visited: "Visited", catStatus: "Not_Allowed" },
-      { visited: "Yet-To-Visit", catStatus: "Allowed" },
-      { visited: "Yet-To-Visit", catStatus: "Not_Allowed" },
-     
-    ];
-    const temp = [
-      {visited:"Yet-To-Visit",catStatus:"Allowed"}
-    ];
-   
-    
-    let allowedAndCenterExistsCount = 0;
-    let notAllowedAndCenterExistsCount = 0;
-    let totalLoanApplications = 0;
-    let totalDisbursed = 0;
-  
-    const flagsToCheck = ['Ring Leader', 'Negative Area', 'External Inciter', 'Risky Area'];
+private processData(data: any[], centerCoords: [number, number]): void {
+  this.saveData = data;
+  const urCounts = { Rural: 0, Urban: 0 };
+  const ruralCensusCodes = new Set();
+  const urbanCensusCodes = new Set();
 
-// Set to track unique [latitude, longitude] pairs
-const uniqueLocations = new Set();
-
-const filteredData = data.filter(item => {
-    const locationKey = `${item.latitude},${item.longitude}`; // Create a unique key based on latitude and longitude
-    if (flagsToCheck.includes(item.flag) && !uniqueLocations.has(locationKey)) {
-        uniqueLocations.add(locationKey);
-        return true; // Include this item in the filtered results
+  data.forEach(item => {
+    const urKey = item.ur as 'Rural' | 'Urban';
+    if (urCounts.hasOwnProperty(urKey)) {
+      ++urCounts[urKey];
     }
-    return false; // Exclude if not matching the flags or if already seen
-});
 
-const countOfDataWithFlag = filteredData.length;
+    if (item.ur === 'Rural') {
+      ruralCensusCodes.add(item.censuscode2011);
+    } else if (item.ur === 'Urban') {
+      urbanCensusCodes.add(item.censuscode2011);
+    }
+  });
 
-const t = data.filter(item=>
-  item.visited === 'Yet-To-Visit' && item.catStatus === 'Allowed'
-);
-const tb = t.reduce((sum, item) => sum + item.disbursed, 0);
+  const totalUniqueCensusCodes = new Set([...ruralCensusCodes, ...urbanCensusCodes]).size;
 
+  const conditions = [
+    { visited: "Visited", catStatus: "Allowed" },
+    { visited: "Visited", catStatus: "Not_Allowed" },
+    { visited: "Yet-To-Visit", catStatus: "Allowed" },
+    { visited: "Yet-To-Visit", catStatus: "Not_Allowed" },
+  ];
 
-    this.filterResults = conditions.map(condition => {
-      const conditionData = data.filter(item => 
-        item.visited === condition.visited && item.catStatus === condition.catStatus
-      );
-      
-      // this.filt = icons.map(condition => {
-      //   const conditionData = data.filter(item => 
-      //     item.visited === condition.visited && item.catStatus === condition.catStatus && item.center === condition.center
-      //   );
-      const uniqueCensusCodeCount = new Set(conditionData.map(item => item.censuscode2011)).size;
-      const totalHouseholds = conditionData.reduce((acc, item) => acc + (item.houseHolds || 0), 0);
-      const conditionDisbursed = conditionData.reduce((acc, item) => acc + (item.disbursed || 0), 0); // Calculate disbursed count for this condition
-      
-      if (condition.catStatus === "Allowed") {
-        allowedAndCenterExistsCount += conditionData.filter(item => item.center === "Center_Exists").length;
-      } else if (condition.catStatus === "Not_Allowed") {
-        notAllowedAndCenterExistsCount += conditionData.filter(item => item.center === "Center_Exists").length;
-      }
-      
-      conditionData.forEach(item => {
-        totalLoanApplications += item.loanApps || 0;
-        totalDisbursed += item.disbursed || 0;
-      });
-  // Additional processing...
-  this.getupMapData().subscribe(mapData => {
-    this.addMixDataToMap(data, mapData, centerCoords);
-});
-// this.getkaMapData().subscribe(mapData => {
-//   this.addMixDataToMap(data, mapData, centerCoords);
-// });
-// this.getbiharMapData().subscribe(mapData => {
-//   this.addMixDataToMap(data, mapData, centerCoords);
-// });
-      return {
-        unique: uniq-1,
-        urCounts,
-        condition: `${condition.visited}, ${condition.catStatus}`,
-        uniqueCensusCodeCount,
-        totalHouseholds,
-        allowedAndCenterCount: allowedAndCenterExistsCount,
-        notAllowedAndCenterCount: notAllowedAndCenterExistsCount,
-        totalapp: totalLoanApplications,
-        totaldisb: totalDisbursed+tb,
-        conddisb:conditionDisbursed,
-        countFlag:countOfDataWithFlag
-      };
-        
+  const flagsToCheck = ['Ring Leader', 'Negative Area', 'External Inciter', 'Risky Area'];
+
+  // Set to track unique [latitude, longitude] pairs
+  const uniqueLocations = new Set();
+
+  const filteredData = data.filter(item => {
+    const locationKey = `${item.latMinBoundCentroid},${item.longMinBoundCentroid}`;
+    if (flagsToCheck.includes(item.flag) && !uniqueLocations.has(locationKey)) {
+      uniqueLocations.add(locationKey);
+      return true;
+    }
+    return false;
+  });
+
+  const countOfDataWithFlag = filteredData.length;
+
+  const t = data.filter(item =>
+    item.visited === 'Yet-To-Visit' && item.catStatus === 'Allowed'
+  );
+  const tb = t.reduce((sum, item) => sum + item.disbursed, 0);
+
+  let allowedAndCenterExistsCount = 0;
+  let notAllowedAndCenterExistsCount = 0;
+  let totalLoanApplications = 0;
+  let totalDisbursed = 0;
+
+  this.filterResults = conditions.map(condition => {
+    const conditionData = data.filter(item => 
+      item.visited === condition.visited && item.catStatus === condition.catStatus
+    );
+
+    const uniqueCensusCodeCount = new Set(conditionData.map(item => item.censuscode2011)).size;
+    const totalHouseholds = conditionData.reduce((acc, item) => acc + (item.houseHolds || 0), 0);
+    const conditionDisbursed = conditionData.reduce((acc, item) => acc + (item.disbursed || 0), 0);
+
+    if (condition.catStatus === "Allowed") {
+      allowedAndCenterExistsCount += conditionData.filter(item => item.center === "Center_Exists").length;
+    } else if (condition.catStatus === "Not_Allowed") {
+      notAllowedAndCenterExistsCount += conditionData.filter(item => item.center === "Center_Exists").length;
+    }
+
+    conditionData.forEach(item => {
+      totalLoanApplications += item.loanApps || 0;
+      totalDisbursed += item.disbursed || 0;
     });
-     // Populate iconResults
-  //    this.iconResults = icons.map(icon => {
-      
-  //     const iconData = data.filter(item =>  
-  //         item.visited === icon.visited && item.catStatus === icon.catStatus && item.center === icon.center
-  //     );
-      
-   
-  
+    this.getupMapData().subscribe(mapData => {
+      this.addMixDataToMap(data, mapData, centerCoords);
+  });
+    return {
+      unique: totalUniqueCensusCodes,  // Ensure 'unique' is included
+      urCounts,
+      condition: `${condition.visited}, ${condition.catStatus}`,
+      uniqueCensusCodeCount,
+      totalHouseholds,
+      allowedAndCenterCount: allowedAndCenterExistsCount,
+      notAllowedAndCenterCount: notAllowedAndCenterExistsCount,
+      totalapp: totalLoanApplications,
+      totaldisb: totalDisbursed + tb,
+      conddisb: conditionDisbursed,
+      countFlag: countOfDataWithFlag
+    };
+  });
+  // this.downloadExcel();
+  // Call the function to plot the data on the map
+  // this.plotDataOnMap(data, centerCoords);
+}  
+downloadCsv(): void {
+  console.log('Downloading CSV...');
+  // this.processData(this.saveData, this.savecoords);
+  const csvData = this.convertToCSV(this.saveData);
+  this.downloadCSVFile(csvData, "processed_data");
+}
 
-  //     return iconData.length;
-  // });
+private convertToCSV(data: mixData[]): string {
+  console.log('Converting data to CSV...');
+  if (data.length === 0) {
+    return '';
   }
-    
+  const csvRows: string[] = [];
+  const headers = Object.keys(data[0]);
+  csvRows.push(headers.join(','));
 
+  for (const row of data) {
+    const values = headers.map(header => {
+      const value = row[header as keyof mixData];
+      return value !== undefined ? JSON.stringify(value) : '';
+    });
+    csvRows.push(values.join(','));
+  }
+
+  return csvRows.join('\n');
+}
+
+private downloadCSVFile(csvData: string, fileName: string): void {
+  console.log('Initiating download...');
+  const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${fileName}_export_${new Date().getTime()}.csv`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
 public triggerSourceMap():void{
   if (this.mapS != null) {
     // Assuming this.mapS value is like "darb_Source", extract "darb" to match keys in centerCoordsMap
@@ -563,6 +643,7 @@ public triggerSourceMap():void{
     }
   }
 }
+
 // Use the mapping, making sure to handle potential undefined values
 public triggerDataToMap(): void {
   if (this.mapt != null) {
@@ -879,8 +960,9 @@ if (mapSToPropKeyBase) {
 
   }
 if(this.mapM){
-  const properties = feature.getProperties()['mixData'];
   
+  const properties = feature.getProperties()['mixData'];
+  // console.log(properties);
   const mapSToPropKeyBase = this.mapM.match(/^.{4}/); // Extracts the first 4 characters of this.mapt
   if (mapSToPropKeyBase) {
     const propKey = `${mapSToPropKeyBase}_Source`; // Constructs the key dynamically
@@ -892,6 +974,7 @@ if(this.mapM){
   
       // Dynamically assign the prop to selectedData
       this.selectedMix = prop;
+      // console.log(this.selectedMix);
       this.updateCurrentSelectedMix();
     } else {
       console.error("Invalid dataSourceKey:", dataSourceKey);
@@ -921,6 +1004,7 @@ updateCurrentSelectedSource() {
 updateCurrentSelectedMix() {
   // Example logic to update currentSelectedData
   this.MixData = this.selectedMix;
+  // console.log(this.selectedMix);
 }
  
 
@@ -954,9 +1038,11 @@ updateCurrentSelectedMix() {
   private addDataToMap(data: any[], attribute: string, imageUrlCondition: (item: any) => string, centerCoords: [number, number]): void {
     const features = data.reduce((acc, item) => {
       const itemCoords = [item.long_min_bound_centroid || item.longMinBoundCentroid, item.lat_min_bound_centroid || item.latMinBoundCentroid];
+      // console.log(itemCoords);
       const distance = this.calculateDistance(centerCoords[1], centerCoords[0], itemCoords[1], itemCoords[0]);
+  
     
-      if (distance <= this.radius) {
+      if (distance < this.radius) {
         const imageUrl = imageUrlCondition(item);
         const geometry = new Point(fromLonLat(itemCoords));
         const feature = new Feature({ geometry: geometry });
@@ -1329,6 +1415,7 @@ private toggleLayerVisibility(category: string, isVisible: boolean) {
 private featureLayers: { [key: string]: VectorLayer<VectorSource<Feature<Geometry>>>  } = {}; // To store references to feature layers
 
 private addMixDataToMap(data: mixData[], mapData: Mapdata[], centerCoords: [number, number]): void {
+  // console.log(centerCoords);
   const transformedCenter = fromLonLat(centerCoords);
   
   this.map.getView().animate({ center: transformedCenter, zoom: 10, duration: 100 });
@@ -1343,6 +1430,7 @@ private addMixDataToMap(data: mixData[], mapData: Mapdata[], centerCoords: [numb
 
   // Categorize and filter data
   const categories = ['allowed', 'not_allowed', 'unexplored']; // Define your categories
+  // console.log()
   categories.forEach(category => {
     const features = data
       .filter(item => this.meetsCriteria(item, category, centerCoords)) // Filter and categorize
@@ -1368,13 +1456,18 @@ private addMixDataToMap(data: mixData[], mapData: Mapdata[], centerCoords: [numb
   this.addCircleToMap(centerCoords, this.radius);
 
   if (routeLayer) {
-    console.log("hi");
+    // console.log("hi");`
     this.map.addLayer(routeLayer);
   }
   
   // Optionally, add other map setup here (e.g., addCircleToMap)
   
 }
+formatBranchDistance(distance: string): string {
+  const numDistance = parseFloat(distance);
+  return numDistance.toFixed(2);
+}
+
 routeLayerVisible:boolean = true;
 toggleRouteLayer(): void {
   const appComponent = this.injector.get(AppComponent); // Assuming AppComponent is injectable
@@ -1391,13 +1484,16 @@ private meetsCriteria(item: mixData, category: string, centerCoords: [number, nu
   const distance = this.calculateDistance(centerCoords[1], centerCoords[0], item.latMinBoundCentroid, item.longMinBoundCentroid);
   // if(distance<=this.radius)
   
-  return distance <= this.radius && item.catStatus.toLowerCase() === category;
+  return distance < this.radius && item.catStatus.toLowerCase() === category;
 }
 
 private createFeature(item: mixData): Feature {
+
   const geometry = new Point(fromLonLat([item.longMinBoundCentroid, item.latMinBoundCentroid]));
+  // console.log([item.longMinBoundCentroid, item.latMinBoundCentroid]);
   const feature = new Feature({ geometry });
   const imageUrl = this.getImageUrlBasedOnItem(item); // Implement this based on your logic
+  // console.log(imageUrl);
 //  const imageUrl = 'assets/green.png';
 feature.set('mixData', item);
   feature.setStyle(this.createIconStyle(imageUrl));
@@ -1406,6 +1502,7 @@ feature.set('mixData', item);
 
 
 private getImageUrlBasedOnItem(item: mixData): string {
+  // console.log(item);
   // Example logic based on the 'visited', 'center', and 'catStatus' properties
   if (item.catStatus === 'Allowed') {
       if (item.visited === 'Visited' && item.center === 'No_Center') {

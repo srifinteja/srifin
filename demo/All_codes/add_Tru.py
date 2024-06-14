@@ -7,6 +7,9 @@ import config
 # script_dir = os.path.dirname(os.path.abspath(__file__))
 # os.chdir(script_dir)
 
+
+## get tru2011 from Combined_Village_Boundary_2023 and add it to Village_detail_Latest with primanry key censuscode2011
+
 # Paths to the CSV files
 csv_file_paths = [
     r"C:\Users\Teja\Downloads\Combined_Village_Boundary_2023.csv"

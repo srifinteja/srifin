@@ -39,7 +39,7 @@ pd.set_option('future.no_silent_downcasting', True)
 
 
 
-villages_up = ['Aligarh', 'Ayodhya', 'Shikarpur','Hathras','Jalesar','Shivpur','Gorakhpur','Chauri Chaura','Tundla','Ikauna','Khadda','Captainganj','Tarabganj','Mahoba','Nichlaul','Kiraoli','Fatehabad']
+villages_up = ['Aligarh','Shahjahanpur', 'Banda','Jhansi','Lalitpur','Hamirpur','Mathura','Baraut','Meerganj','Ayodhya','Mawana','Siyana','Nanpara','Gopiganj','Bahraich','Balrampur','Uruwa Bazar','Tetari Bazar', 'Madhuban','Shikarpur','Hathras','Jalesar','Shivpur','Gorakhpur','Chauri Chaura','Tundla','Ikauna','Khadda','Captainganj','Tarabganj','Mahoba','Nichlaul','Kiraoli','Fatehabad']
 villages_ka = ['Kalaburgi', 'Basavakalyan', 'Yadgir', 'Bijapur', 'Kamalapur', 'Haveri', 
             'Belagavi', 'Chitguppa', 'Lokapur', 'Gokak', 'Shamanur', 'Hubbali', 
             'Shahpur', 'Ranebennur', 'Kittur']

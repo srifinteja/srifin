@@ -28,8 +28,9 @@
     </button>
   
   </div>
-  
-
+  <div>
+  <button class="upload-button" (click)="showUploadForm()">Upload File</button>
+</div>
 <div>
 
   <button mat-button (click)="toggleKaDropdown()" [class.active]="showKaDropdown">KA</button>
@@ -206,7 +207,7 @@
   <iframe *ngIf="externalUrl" [src]="externalUrl | safeUrl" style="width:100%; height:calc(100vh - 85px); border:none;"></iframe>
   
   <!-- Conditional rendering based on `showMap` and the `mapType` -->
-  <app-map *ngIf="showMap && ['census', 'under15', 'combined', 'latestSourcing', 'mix', 'kala', 'basa', 'yadg', 'bija', 'kama', 'have', 'bela', 'chit', 'loka', 'goka','kitt', 'sham', 'hubb', 'shah', 'rane', 'darb', 'sakr', 'phul', 'runn', 'beni', 'sahe', 'rose', 'sheo', 'kant', 'sita', 'sama', 'hath','jale', 'shiv', 'gora', 'chau', 'tund', 'alig', 'ikau', 'khad', 'capt', 'tara', 'maho',  'nich', 'kira' , 'darb_15','sakr_15' , 'phul_15' , 'runn_15' , 'beni_15' , 'sahe_15' , 'rose_15' , 'sheo_15' , 'kant_15' , 'sita_15' , 'sama_15'].includes(mapType)" [mapType]="mapType" style="width:100%; height:calc(100vh - 200px);"></app-map>
+  <app-map *ngIf="showMap && ['census', 'under15', 'combined', 'latestSourcing', 'mix', 'kala','band', 'ayod','basa', 'yadg', 'bija', 'kama', 'have', 'bela', 'chit', 'loka', 'goka','kitt', 'sham', 'hubb', 'shah', 'rane', 'darb', 'sakr', 'phul', 'runn', 'beni', 'sahe', 'rose', 'sheo', 'kant', 'sita', 'sama', 'hath','jale', 'shiv', 'gora', 'chau', 'tund', 'alig','band','uruw','hami','gopi','math','nanp','lali','jhan','teta','bahr','balr','madh','karw', 'ikau', 'khad', 'capt', 'tara', 'maho',  'nich', 'kira' , 'darb_15','sakr_15' , 'phul_15' , 'runn_15' , 'beni_15' , 'sahe_15' , 'rose_15' , 'sheo_15' , 'kant_15' , 'sita_15' , 'sama_15'].includes(mapType)" [mapType]="mapType" style="width:100%; height:calc(100vh - 200px);"></app-map>
   <app-map *ngIf="showUnder15" [mapt]="mapt" style="width:100%; height:calc(100vh - 200px);"></app-map>
   <app-map *ngIf="showSource" [mapS]="mapS" style="width:100%; height:calc(100vh - 200px);"></app-map>
   <app-map *ngIf="showMix && !isVisible" [mapM]="mapM" style="width:100%; height:100px;"></app-map>
@@ -282,7 +283,13 @@
       </tr>
     </tbody>
   </table>
-  
+ <!-- File Upload Form -->
+ <div *ngIf="uploadFormVisible" class="upload-form">
+  <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <input type="file" (change)="onFileChange($event)" accept=".csv" required>
+    <!-- <input type="text" [(ngModel)]="uploadPath" name="uploadPath" placeholder="Enter upload path" required> -->
+    <button type="submit">Upload</button>
+  </form>
 </div>
 
 
