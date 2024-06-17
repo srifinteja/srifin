@@ -846,9 +846,9 @@ private getChartOptions() {
     // Implement log out logic here
   }
   // <iframe title="Average time for group formation(app_date)" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=070116f3-49e7-4a84-a97e-b37461cef686&autoAuth=true&ctid=871c73fc-63e3-4f99-8eae-d772983c376b" frameborder="0" allowFullScreen="true"></iframe>
-
+  // https://app.powerbi.com/reportEmbed?reportId=742e7bfc-d92e-4e94-89d3-ae9bc66808ce&autoAuth=true&ctid=871c73fc-63e3-4f99-8eae-d772983c376b
   redirectToSrifin(): void {
-    this.externalUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://app.powerbi.com/reportEmbed?reportId=070116f3-49e7-4a84-a97e-b37461cef686');
+    this.externalUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://app.powerbi.com/reportEmbed?reportId=742e7bfc-d92e-4e94-89d3-ae9bc66808ce&autoAuth=true&ctid=871c73fc-63e3-4f99-8eae-d772983c376b');
     this.showMap = false; 
   }
 
