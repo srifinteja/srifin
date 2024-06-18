@@ -169,7 +169,7 @@ import java.util.concurrent.TimeUnit;
 			@Bean
 			public CommandLineRunner mapData(ExcelReader excelReader) {
 				return (args) -> {
-					String excelFilePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\radar\\up_data.xlsx";
+					String excelFilePath = "app/radar/up_data.xlsx";
 					List<Mapdata> combinedList = excelReader.readLocationData(excelFilePath);
 //					combinedList.forEach(data -> System.out.println(data));
 				};

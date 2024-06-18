@@ -157,7 +157,7 @@ public class CensusController {
     @GetMapping("/upMapdata")
     public ResponseEntity<List<Mapdata>> getupMapdata() {
         // Specify the path to your Excel file
-        String excelFilePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\radar\\up_data.xlsx";
+        String excelFilePath = "app/radar/up_data.xlsx";
         // Use the ExcelReader to read data from the Excel file
         List<Mapdata> dataList = excelReader.readLocationData(excelFilePath);
         // Return the list of CensusData objects
@@ -167,7 +167,7 @@ public class CensusController {
     @GetMapping("/biharMapdata")
     public ResponseEntity<List<Mapdata>> getbiharMapdata() {
         // Specify the path to your Excel file
-        String excelFilePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\radar\\bihar_data.xlsx";
+        String excelFilePath = "app/radar/bihar_data.xlsx";
         // Use the ExcelReader to read data from the Excel file
         List<Mapdata> dataList = excelReader.readLocationData(excelFilePath);
         // Return the list of CensusData objects
@@ -177,7 +177,7 @@ public class CensusController {
     @GetMapping("/kaMapdata")
     public ResponseEntity<List<Mapdata>> getkaMapdata() {
         // Specify the path to your Excel file
-        String excelFilePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\radar\\ka_data.xlsx";
+        String excelFilePath = "app/radar/ka_data.xlsx";
         // Use the ExcelReader to read data from the Excel file
         List<Mapdata> dataList = excelReader.readLocationData(excelFilePath);
         // Return the list of CensusData objects
@@ -224,7 +224,7 @@ public class CensusController {
     @GetMapping("/mixData/{fileName}")
     public ResponseEntity<List<Mix>> getMixData(@PathVariable String fileName) {
         // Base path to the Excel files
-        String basePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\mixedd\\";
+        String basePath = "app/mixedd/";
         // Construct the full path by appending the fileName parameter and file extension
         String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
 
@@ -235,48 +235,48 @@ public class CensusController {
         return ResponseEntity.ok(dataList);
     }
 
-    @GetMapping("/br_negativeData")
-    public ResponseEntity<List<NegativeMaps>> getbrNegative() {
-        // Base path to the Excel files
-        String basePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\negative maps\\filtered_output_br.xlsx";
-        // Construct the full path by appending the fileName parameter and file extension
-//        String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
-
-        // Use the ExcelReader to read data from the Excel file
-        List<NegativeMaps> dataList = excelReader.readNegativeMapData(basePath);
-
-        // Return the list of Mix objects
-        return ResponseEntity.ok(dataList);
-    }
-
-    @GetMapping("/up_negativeData")
-    public ResponseEntity<List<NegativeMaps>> getupNegative() {
-        // Base path to the Excel files
-        String basePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\negative maps\\filtered_output_up.xlsx";
-        // Construct the full path by appending the fileName parameter and file extension
-//        String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
-
-        // Use the ExcelReader to read data from the Excel file
-        List<NegativeMaps> dataList = excelReader.readNegativeMapData(basePath);
-
-        // Return the list of Mix objects
-        return ResponseEntity.ok(dataList);
-    }
-
-    @GetMapping("/ka_negativeData")
-    public ResponseEntity<List<NegativeMaps>> getkaNegative() {
-        // Base path to the Excel files
-        String basePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\negative maps\\filtered_output_ka.xlsx";
-        // Construct the full path by appending the fileName parameter and file extension
-//        String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
-
-        // Use the ExcelReader to read data from the Excel file
-        List<NegativeMaps> dataList = excelReader.readNegativeMapData(basePath);
-
-        // Return the list of Mix objects
-        return ResponseEntity.ok(dataList);
-    }
-
+//    @GetMapping("/br_negativeData")
+//    public ResponseEntity<List<NegativeMaps>> getbrNegative() {
+//        // Base path to the Excel files
+//        String basePath = "app/negative maps/filtered_output_br.xlsx";
+//        // Construct the full path by appending the fileName parameter and file extension
+////        String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
+//
+//        // Use the ExcelReader to read data from the Excel file
+//        List<NegativeMaps> dataList = excelReader.readNegativeMapData(basePath);
+//
+//        // Return the list of Mix objects
+//        return ResponseEntity.ok(dataList);
+//    }
+//
+//    @GetMapping("/up_negativeData")
+//    public ResponseEntity<List<NegativeMaps>> getupNegative() {
+//        // Base path to the Excel files
+//        String basePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\negative maps\\filtered_output_up.xlsx";
+//        // Construct the full path by appending the fileName parameter and file extension
+////        String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
+//
+//        // Use the ExcelReader to read data from the Excel file
+//        List<NegativeMaps> dataList = excelReader.readNegativeMapData(basePath);
+//
+//        // Return the list of Mix objects
+//        return ResponseEntity.ok(dataList);
+//    }
+//
+//    @GetMapping("/ka_negativeData")
+//    public ResponseEntity<List<NegativeMaps>> getkaNegative() {
+//        // Base path to the Excel files
+//        String basePath = "C:\\Users\\Teja\\Desktop\\karthik\\demo\\negative maps\\filtered_output_ka.xlsx";
+//        // Construct the full path by appending the fileName parameter and file extension
+////        String excelFilePath = basePath + fileName + "_Mixed_Map.xlsx";
+//
+//        // Use the ExcelReader to read data from the Excel file
+//        List<NegativeMaps> dataList = excelReader.readNegativeMapData(basePath);
+//
+//        // Return the list of Mix objects
+//        return ResponseEntity.ok(dataList);
+//    }
+//
 
     //
     @PostMapping("/api/runPythonScripts")
@@ -284,8 +284,8 @@ public class CensusController {
         try {
             System.out.println("front end req i got");
             String line;
-            ProcessBuilder processBuilder = new ProcessBuilder("C:\\Users\\Teja\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-                    "C:\\Users\\Teja\\Desktop\\karthik\\demo\\All_codes\\Combined_code_village.py");
+            ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python3",
+                    "app/All_codes/Combined_code_village.py");
             processBuilder.redirectErrorStream(true); // Redirects error stream to standard output
             Process process = processBuilder.start();
 

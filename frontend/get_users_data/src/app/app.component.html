@@ -4,15 +4,15 @@
   </span>
   <span class="toolbar-spacer"></span>
   <div class="user-info">
-    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-icon">
+    <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-icon">
       <mat-icon>account_circle</mat-icon>
-    </button>
+    </button> -->
     <span class="welcome-message">Welcome, {{ userName || 'Guest' }}</span>
   </div>
-  <mat-menu #userMenu="matMenu">
+  <!-- <mat-menu #userMenu="matMenu">
     <button mat-menu-item *ngIf="!isLoggedIn" (click)="login()">Login</button>
     <button mat-menu-item *ngIf="isLoggedIn" (click)="logout()">Log out</button>
-  </mat-menu>
+  </mat-menu> -->
   
 </mat-toolbar>
 

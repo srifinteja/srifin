@@ -61,15 +61,15 @@ import { initializeKeycloak } from 'keycloak-init.factory';
     MatExpansionModule,
     MatTableModule,
     CommonModule,
-    KeycloakAngularModule
+    // KeycloakAngularModule
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializeKeycloak,
+    //   multi: true,
+    //   deps: [KeycloakService],
+    // },
   ],
   bootstrap: [AppComponent]
 })

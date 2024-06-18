@@ -25,6 +25,7 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mixinColor } from '@angular/material/core';
 import { AppComponent } from '../app.component';
+import { API_CONFIG } from '../api-config';
 interface MapComponentMethods {
   [methodName: string]: (data: any) => void;
 }
@@ -124,7 +125,7 @@ notAllowedVisible = true;
 unexploredVisible = true;
  EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
  EXCEL_EXTENSION = '.xlsx';
-
+ private apiUrl = `${API_CONFIG.apiUrl}/api/census`;
  darbcenterCoords: [number, number] = [85.9092286, 26.1705652];
  sakrcenterCoords: [number, number] = [86.0691029, 26.2034595];
  phulcenterCoords: [number, number] = [86.494003, 26.35992];
@@ -682,10 +683,10 @@ public triggerDataToMap(): void {
     }
   }
   getdarbSourceData(): Observable<LatestSourcing[]> {
-    return this.http.get<LatestSourcing[]>('http://localhost:8080/api/census/darbSource');
+    return this.http.get<LatestSourcing[]>('apiUrl/darbSource');
   }
   getsakrSourceData(): Observable<LatestSourcing[]> {
-    return this.http.get<LatestSourcing[]>('http://localhost:8080/api/census/sakrSource');
+    return this.http.get<LatestSourcing[]>('apiUrl/sakrSource');
   }
   getphulSourceData(): Observable<LatestSourcing[]> {
     return this.http.get<LatestSourcing[]>('http://localhost:8080/api/census/phulSource');
@@ -724,23 +725,23 @@ public triggerDataToMap(): void {
   getNegative_br(): Observable<negativeMaps[]> {
     return this.http.get<negativeMaps[]>('http://localhost:8080/api/census/br_negativeData');
   }
-  private baseUrl: string = 'http://localhost:8080/api/census/';
+  private baseUrl: string = this.apiUrl;
   getUnder15Data(cityName: string): Observable<Under15[]> {
     const url = `${this.baseUrl}${cityName}Under15`;
     return this.http.get<Under15[]>(url);
   }
  
 
-  private baseUrlSource: string = 'http://localhost:8080/api/census/';
+  private baseUrlSource: string = this.apiUrl;
   getSourceData(cityName: string): Observable<LatestSourcing[]> {
     const url = `${this.baseUrlSource}${cityName}Source`;
     return this.http.get<LatestSourcing[]>(url);
   }
 
   // http://localhost:8080/api/census/mixData/Sakri
-  private baseUrlMix: string = 'http://localhost:8080/api/census/mixData/';
+  private baseUrlMix: string = this.apiUrl;
   getMixData(cityName: string): Observable<mixData[]> {
-    const url = `${this.baseUrlMix}${cityName}`;
+    const url = `${this.baseUrlMix}/mixData/${cityName}`;
       const observable = this.http.get<mixData[]>(url);
     // console.log(observable);
     return this.http.get<mixData[]>(url);
@@ -797,7 +798,7 @@ convertColorNameToRGBA(colorName: string, opacity: number = 0.5): string {
     
 }
 fetchGeoJSONData(censuscode: string, color: string): void {
-  this.http.get<any>('http://localhost:8080/api/census/text-file').subscribe(data => {
+  this.http.get<any>(`${this.apiUrl}/text-file`).subscribe(data => {
     if (data) {
       const geojsonFormat = new GeoJSON();
       const allFeatures: Feature<Geometry>[] = geojsonFormat.readFeatures(data, {
@@ -1018,17 +1019,21 @@ updateCurrentSelectedMix() {
   }
 
   getupMapData(): Observable<Mapdata[]> {
-    return this.http.get<Mapdata[]>('http://localhost:8080/api/census/upMapdata');
+    // return this.http.get<Mapdata[]>('apiUrl/upMapdata');
+    return this.http.get<Mapdata[]>(`${this.apiUrl}/upMapdata`);
   }
   getbiharMapData(): Observable<Mapdata[]> {
-    return this.http.get<Mapdata[]>('http://localhost:8080/api/census/biharMapdata');
+    // return this.http.get<Mapdata[]>('apiUrl/biharMapdata');
+    return this.http.get<Mapdata[]>(`${this.apiUrl}/biharMapdata`);
   }
   getkaMapData(): Observable<Mapdata[]> {
-    return this.http.get<Mapdata[]>('http://localhost:8080/api/census/kaMapdata');
+
+    return this.http.get<Mapdata[]>(`${this.apiUrl}/kaMapdata`);
   }
   getmixData(): Observable<mixData[]> {
     
-    return this.http.get<mixData[]>('http://localhost:8080/api/census/MixData');
+    // return this.http.get<mixData[]>('apiUrl/MixData');
+    return this.http.get<mixData[]>(`${this.apiUrl}/MixData`);
 
   }
  

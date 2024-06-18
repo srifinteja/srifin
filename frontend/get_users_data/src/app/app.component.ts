@@ -32,6 +32,7 @@ import { Feature } from 'ol';
 import { fromLonLat, useGeographic } from 'ol/proj';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { CommonModule,DatePipe } from '@angular/common';
+import { API_CONFIG } from './api-config';
 type LocationId = "kala" | "basa" | "yadg" | "bija" | "kama" | "have" | "bela" | "chit" | "loka" | "goka" |
   "sham" | "hubb" | "shah" | "rane" | "darb" | "sakr" | "phul" | "runn" | "beni" | "sahe" | 
   "rose" | "sheo" | "kant" | "sita" | "sama" | "hath" | "jale" | 
@@ -134,6 +135,7 @@ export class AppComponent implements OnInit {
   "tara" | "maho" | "nich" | "kira"|"band"|"ayod"|"uruw"|"hami"|"gopi"|"math"|"nanp"|"lali"|"jhan"|"teta"|"bahr"|"balr"|"madh"|"karw" |"band"| "mix" ;
   mapt: string = '';
   mapS:string = '';
+  private apiUrl = `${API_CONFIG.apiUrl}/api/census`;
   sample:string = 'teja';
   uploadPath:string = '';
   isVisible: boolean = false;
@@ -387,7 +389,7 @@ this.togmuza = !this.togmuza;
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private cdr: ChangeDetectorRef,
-    private keycloakService: KeycloakService
+    // private keycloakService: KeycloakService
     
   ) {
     
@@ -397,9 +399,9 @@ this.togmuza = !this.togmuza;
   }
   // "C:\\Users\\Teja\\AppData\\Local\\Programs\\Python\\Python312\\python3.dll", "C:\\Users\\Teja\\Desktop\\All_codes\\Combined_code_village.py"
   ngOnInit() {
-    this.isLoggedIn = this.keycloakService.isLoggedIn();
-    this.loadUserProfile();
-    this.checkUserRole();
+    // this.isLoggedIn = this.keycloakService.isLoggedIn();
+    // this.loadUserProfile();
+    // this.checkUserRole();
     this.map = new Map({
       target: 'map',
       layers: [
@@ -427,22 +429,22 @@ this.togmuza = !this.togmuza;
     this.fetchData(this.currentDataset);
 
   }
-  async loadUserProfile() {
-    try {
-      const userDetails = await this.keycloakService.loadUserProfile();
-      console.log(userDetails.username);
-      this.userName = userDetails.username|| 'Guest';
-    } catch (error) {
-      console.error('Error loading user details', error);
-    }
-  }
+  // async loadUserProfile() {
+  //   try {
+  //     const userDetails = await this.keycloakService.loadUserProfile();
+  //     console.log(userDetails.username);
+  //     this.userName = userDetails.username|| 'Guest';
+  //   } catch (error) {
+  //     console.error('Error loading user details', error);
+  //   }
+  // }
 
-  logout() {
-    this.keycloakService.logout();
-  }
-  login() {
-    this.keycloakService.login();
-  }
+  // logout() {
+  //   this.keycloakService.logout();
+  // }
+  // login() {
+  //   this.keycloakService.login();
+  // }
   
   private renderChart(users: User[]): void {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -474,12 +476,12 @@ this.togmuza = !this.togmuza;
 
     // this.setupZoomButtons();
   }
-  private async checkUserRole() {
-    const userDetails = await this.keycloakService.loadUserProfile();
-    // Assuming there's a custom attribute or a role that can be checked
-    this.isKalaburgiUser = userDetails.username==='user';
-    this.isBasavUser = userDetails.username==='user1';
-  }
+  // private async checkUserRole() {
+  //   const userDetails = await this.keycloakService.loadUserProfile();
+  //   // Assuming there's a custom attribute or a role that can be checked
+  //   this.isKalaburgiUser = userDetails.username==='user';
+  //   this.isBasavUser = userDetails.username==='user1';
+  // }
   private categorizeData(users: User[]): DataSet[] {
     const stationaryData: DataSet = { label: 'Stationary (Speed < 3 km/hr)', data: [], borderColor: 'red', pointBackgroundColor: 'red', fill: false, borderWidth: 1, pointRadius: 2 };
     const walkingData: DataSet = { label: 'Walking (3 km/hr ≤ Speed ≤ 10 km/hr)', data: [], borderColor: 'green', pointBackgroundColor: 'green', fill: false, borderWidth: 1, pointRadius: 2 };
@@ -549,7 +551,7 @@ deviceId:string = '9315638429';
 originalUsers: User[] = []; 
 x():void{
   
-  let url:string = `http://localhost:8080/api/census?`;
+  let url:string = `${this.apiUrl}`;
   if (this.deviceId) {
     url += `deviceId=${this.deviceId}`;
   }
@@ -815,7 +817,7 @@ private getChartOptions() {
 }
 
   runPythonScripts() {
-    return this.http.post('http://localhost:8080/api/census/api/runPythonScripts', {},{responseType: 'text'});
+    return this.http.post(`${this.apiUrl}/api/runPythonScripts`, {},{responseType: 'text'});
   }
   fetchData(dataset: string) {
     this.activeDataset = dataset;

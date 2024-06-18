@@ -38,7 +38,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 COPY All_codes ./All_codes
 COPY mixedd ./mixedd
-COPY "negative maps" ./negative_maps
+#COPY "negative maps" ./negative_maps
 COPY py_outputs ./py_outputs
 COPY radar ./radar
 
